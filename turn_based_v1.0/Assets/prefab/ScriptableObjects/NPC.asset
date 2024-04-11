@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffe637be955e3bc458e9eb52c6ccb218, type: 3}
+  m_Name: NPC
+  m_EditorClassIdentifier: 
+  HP: 10
+  App: 1
+  Name: Blue Slime
+  sprite: {fileID: -1190206999, guid: b9485c4865945ce4b8d455c3fbec8d0b, type: 3}
+  Att: 10
