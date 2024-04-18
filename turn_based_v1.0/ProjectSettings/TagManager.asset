@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PartyManager
+  - Enemy
+  - EnemyHpPanel
+  - EnemyNamesPanel
   layers:
   - Default
   - TransparentFX
@@ -11,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Buildings
+  - Buildings 2. Layer
   - 
   - 
   - 
@@ -38,6 +42,27 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ground
+    uniqueID: 2123094375
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Buildings
+    uniqueID: 3635160047
+    locked: 0
+  - name: Ground 2. Layer
+    uniqueID: 2960405055
+    locked: 0
+  - name: Buildings 2. Layer
+    uniqueID: 961257
+    locked: 0
+  - name: Building 3. Layer
+    uniqueID: 3571631971
+    locked: 0
+  - name: Characters
+    uniqueID: 2296161683
+    locked: 0
+  - name: UI
+    uniqueID: 1856452715
     locked: 0
