@@ -220,7 +220,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ad5322a5ae4ab4ca5708624583b120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 1
+  movementSpeed: 5
+  collisionOffset: 0.05
+  movementFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   playerInput: {fileID: 0}
 --- !u!114 &5784046161846450762
 MonoBehaviour:
@@ -252,12 +267,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warriorData:
     HP: 100
-    App: 0
+    mp: 20
+    level: 1
     Name: Bob
     ATT: 10
   partyManager: {fileID: 0}
   HpAppPanel: {fileID: 0}
+  mpPanel: {fileID: 0}
   NamePanel: {fileID: 0}
+  levelPanel: {fileID: 0}
   hero: 1
 --- !u!95 &5606394244547385797
 Animator:

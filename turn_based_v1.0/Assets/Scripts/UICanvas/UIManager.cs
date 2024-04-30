@@ -8,27 +8,26 @@ public class UIManager : MonoBehaviour
 
     public PartyManager partymanager;
     private Vector3[] arrayPositions;
-   // public GameObject UiHeroNames;
     public GameObject HeroSelector;
     public GameObject FirstOptionMenu;
     public GameObject crosshair;
     public GameObject OptionSelector;
 
-
     int crossairRotation = 0;
     int selectorRotation = 0;
     int selectionMenu = 0;
     int optionSelected;
-    public int selectedWarriorId;
+    
     bool playerSelect;
     bool optionSelect;
     bool targetSelect;
 
+    public int selectedWarriorId;
     public int targetID;
 
     private bool spaceReady;
 
-    public void startUIManager()
+    public void StartUIManager()
     {
         HeroSelector.SetActive(true);
         populateArrayPostions();
@@ -157,8 +156,8 @@ public class UIManager : MonoBehaviour
 
     public void populateArrayPostions()
     {
-        arrayPositions = new Vector3[partymanager.EnemyCombatList.Count];
         int i = 0;
+        arrayPositions = new Vector3[partymanager.EnemyCombatList.Count];
         foreach (var enemy in partymanager.EnemyCombatList)
         {
             arrayPositions[i] = enemy.position;

@@ -11,8 +11,6 @@ public class Warrior
     public int WarriorMp { get; set; }
     public int WarriorAttack { get; set; }
     public int WarriorId { get; set; }
-
-
     public Vector3 WarriorPosition { get; set; }
     public GameObject WarriorGameObject { get; set; }
 }

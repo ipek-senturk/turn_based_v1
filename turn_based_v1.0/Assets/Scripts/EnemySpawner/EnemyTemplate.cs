@@ -39,13 +39,12 @@ public class EnemyTemplate : MonoBehaviour
             Destroy(gameObject);
         }
         if (enemydata.HP > 0)
-            updateUi();
-
+            UpdateUI();
     }
 
-    void updateUi()
+    void UpdateUI()
     {
-        EnemyHpPanel.GetComponent<TextMeshProUGUI>().text = enemydata.HP.ToString();
+        EnemyHpPanel.GetComponent<TextMeshProUGUI>().text = "HP " + enemydata.HP.ToString();
     }
 
     public void SendData()
@@ -55,10 +54,10 @@ public class EnemyTemplate : MonoBehaviour
     public void sendCombatData()
     {
         partyManager.addEnemyToCombatList(enemydata, transform.position, gameObject);
-        Invoke("searchForPanels", 0.5f);
+        Invoke(nameof(SearchForPanels), 0.5f);
     }
 
-    void searchForPanels()
+    void SearchForPanels()
     {
         EnemyNamePanel = GameObject.FindGameObjectWithTag("EnemyNamesPanel").transform.Find(enemydata.id.ToString()).gameObject;
         EnemyHpPanel = GameObject.FindGameObjectWithTag("EnemyHpPanel").transform.Find(enemydata.id.ToString() + "HP").gameObject;

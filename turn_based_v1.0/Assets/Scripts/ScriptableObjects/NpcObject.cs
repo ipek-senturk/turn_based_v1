@@ -6,6 +6,7 @@ public class NpcObject : ScriptableObject
     public int HP;
     public int App;
     public string Name;
-    public Sprite sprite;
     public int Att;
+    public Sprite sprite;
+    public GameObject enemyGO;
 }

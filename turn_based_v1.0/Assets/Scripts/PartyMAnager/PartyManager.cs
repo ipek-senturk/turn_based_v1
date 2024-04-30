@@ -7,7 +7,7 @@ public class PartyManager : MonoBehaviour
     public List<Warrior> warriorList = new List<Warrior>();
     public List<Enemy> EnemyCombatList = new List<Enemy>();
 
-    public UIManager UiManager;
+    public UIManager UIManager;
     public InputManager inputManager;
 
     public CombatCanvas combatcanvasScript;
@@ -33,7 +33,6 @@ public class PartyManager : MonoBehaviour
         });
     }
 
-    
     public void addEnemyToCombatList(EnemyTemplate.EnemyData enemyData, Vector3 pos, GameObject gameObject)
     {
         EnemyCombatList.Add(new Enemy
@@ -42,18 +41,18 @@ public class PartyManager : MonoBehaviour
             EnemyHP = enemyData.HP,
             EnemyID = EnemyCombatList.Count,
             position = pos,
-            EnemygameObject = gameObject,
+            EnemyGameObject = gameObject,
             EnemyAtt = enemyData.Att
         });
     }
-    public void startCombat()
+    public void StartCombat()
     {
-        UiManager.gameObject.SetActive(true);
-        UiManager.startUIManager();
+        UIManager.gameObject.SetActive(true);
+        UIManager.StartUIManager();
     }
 
 
-    public void getHeroStats()
+    public void GetHeroStats()
     {
         foreach (var warrior in warriorList)
         {
@@ -68,19 +67,26 @@ public class PartyManager : MonoBehaviour
             if (EnemyCombatList[i].EnemyID == target)
             {
                 EnemyCombatList[i].EnemyHP -= warriorList[warriorId].WarriorAttack;
-                EnemyCombatList[i].EnemygameObject.GetComponent<EnemyTemplate>().TakeDamage(warriorList[warriorId].WarriorAttack);
+
+                StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
+                StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+                
+                EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(warriorList[warriorId].WarriorAttack);
+
                 if (EnemyCombatList[i].EnemyHP <= 0)
                 {
+                    StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                     EnemyCombatList.RemoveAt(i);
-                    UiManager.populateArrayPostions();
+                    UIManager.populateArrayPostions();
                     if (EnemyCombatList.Count != 0)
                     {
-                        UiManager.moveCrossair();
+                        UIManager.moveCrossair();
                     }
                 }
                 if (EnemyCombatList.Count == 0)
                 {
-                    endScript();
+                    UIManager.endCombat();
+                    EndScript();
                     break;
                 }
                 break;
@@ -89,49 +95,90 @@ public class PartyManager : MonoBehaviour
 
         if (heroturncount >= warriorList.Count - 1)
         {
-            GiveDamageToPlayer();
+            // GiveDamageToPlayer();
+            StartCoroutine(SequenceEnemyAttacks());
             heroturncount = 0;
         }
         else
             heroturncount++;
     }
-
-    public void GiveDamageToPlayer()
+    private IEnumerator SequenceEnemyAttacks()
     {
-        int targetHero;
+        yield return new WaitForSeconds(1.0f);
         foreach (var enemy in EnemyCombatList)
         {
-            targetHero = UnityEngine.Random.Range(0, warriorList.Count);
+            // Get a random target hero
+            int targetHero = UnityEngine.Random.Range(0, warriorList.Count);
+
+            // Play the attack animation for the current enemy
+            StartCoroutine(PlayAttackAnimation(enemy.EnemyGameObject.GetComponent<Animator>()));
+            yield return new WaitForSeconds(0.5f);
+            // Play the hurt animation for the targeted hero
+            StartCoroutine(PlayHurtAnimation(warriorList[targetHero].WarriorGameObject.GetComponent<Animator>()));
+            
+            // Wait for the attack animation to finish
+            yield return new WaitForSeconds(enemy.EnemyGameObject.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0).Length);
+
+            // Inflict damage on the targeted hero
             warriorList[targetHero].WarriorGameObject.GetComponent<HeroStats>().RecieveDamage(enemy.EnemyAtt);
-            print("The hero " + warriorList[targetHero].WarriorName + "  Recieved " + enemy.EnemyAtt + " dmage from Enemy " + enemy.EnemyName);
+
+            // Print damage information
+            print("The hero " + warriorList[targetHero].WarriorName + " received " + enemy.EnemyAtt + " damage from Enemy " + enemy.EnemyName);
+
+            // Update the hero's HP
             warriorList[targetHero].WarriorHP -= enemy.EnemyAtt;
 
+            // Check if the hero is dead
             if (warriorList[targetHero].WarriorHP <= 0)
             {
-                print("your warrior is dead");
+                print("Your warrior is dead");
                 if (warriorList.Count > 1)
                     warriorList.RemoveAt(targetHero);
                 if (warriorList.Count == 1)
                 {
-                    UiManager.endCombat();
-                    endScript();
+                    UIManager.endCombat();
+                    EndScript();
                 }
             }
         }
     }
 
-    private void endScript()
+    private void EndScript()
     {
-        combatcanvasScript.destroychildrens();
+        combatcanvasScript.DestroyChildren();
         inputManager.state = InputManager.ControllerState.Movable;
         EnemySpawner.killSpawner();
-        Invoke("clearLists", .2f);
+        Invoke(nameof(ClearList), .2f);
 
-        CombatPanel.gameObject.SetActive(false);
+        // CombatPanel.gameObject.SetActive(false);
+        CombatPanel.SetActive(false);
     }
 
-    void clearLists()
+    void ClearList()
     {
         EnemyCombatList = new List<Enemy>();
+    }
+    private IEnumerator PlayAttackAnimation(Animator animator)
+    {
+        // Trigger attack animation
+        animator.SetTrigger("Attack");
+
+        // Wait for the duration of the attack animation
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
+    }
+
+    private IEnumerator PlayHurtAnimation(Animator animator)
+    {
+        // Trigger hurt animation
+        animator.SetTrigger("Hurt");
+
+        // Wait for the duration of the hurt animation
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
+    }
+    private IEnumerator PlayDeathAnimation(Animator animator)
+    {
+        animator.SetBool("isDead", true);
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
     }
 }

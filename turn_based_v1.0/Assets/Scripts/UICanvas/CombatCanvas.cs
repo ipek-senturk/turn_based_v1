@@ -32,7 +32,7 @@ public class CombatCanvas : MonoBehaviour
         CombatPainel.SetActive(false);
     }
 
-    public void startScript()
+    public void StartScript()
     {
         HeroNameSpawns();
         HpAppinfoSpawn();
@@ -121,8 +121,9 @@ public class CombatCanvas : MonoBehaviour
         NPCnameTemplate.SetActive(false);
     }
 
-    public void destroychildrens()
+    public void DestroyChildren()
     {
+        // Player info
         foreach (Transform child in gameObject.transform.GetChild(0).GetChild(0))
         {
             if (child.gameObject.activeInHierarchy)
@@ -137,7 +138,6 @@ public class CombatCanvas : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
-        /////////////////////////////// NEW /////////////////////////////////////////
         foreach (Transform child in gameObject.transform.GetChild(0).GetChild(2))
         {
             if (child.gameObject.activeInHierarchy)
@@ -145,7 +145,14 @@ public class CombatCanvas : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
-        //////////////////////////////////////////////////////////////////////////////
+        foreach (Transform child in gameObject.transform.GetChild(0).GetChild(3))
+        {
+            if (child.gameObject.activeInHierarchy)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        // Enemy info
         foreach (Transform child in gameObject.transform.GetChild(1).GetChild(0))
         {
             if (child.gameObject.activeInHierarchy)

@@ -11,35 +11,33 @@ public class InputManager : MonoBehaviour
     }
 
     public ControllerState state;
+    private Vector3 inputMovement;
 
-    private Vector3 InputMovement;
-
-    // Start is called before the first frame update
     void Start()
     {
         state = ControllerState.Movable;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (state == ControllerState.Movable)
         {
-            InputMovement.x = Input.GetAxisRaw("Horizontal");
-            InputMovement.y = Input.GetAxisRaw("Vertical");
+            inputMovement.x = Input.GetAxisRaw("Horizontal");
+            inputMovement.y = Input.GetAxisRaw("Vertical");
         }
         else
         {
-            InputMovement = Vector3.zero; // Reset movement when not movable
+            // Reset movement when not movable
+            inputMovement = Vector3.zero; 
         }
     }
 
-    public Vector3 getMovement()
+    public Vector3 GetMovement()
     {
-        return InputMovement;
+        return inputMovement;
     }
 
-    public void stopPlayer()
+    public void StopPlayer()
     {
         state = ControllerState.Unmovable;
     }

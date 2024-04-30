@@ -8,9 +8,8 @@ public class CrossairSelector : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<EnemyTemplate>())
-        
             UiManager.targetID = (collision.gameObject.GetComponent<EnemyTemplate>().enemydata.id);
-        print(collision.gameObject.GetComponent<EnemyTemplate>().enemydata.id);
+        print("Selected enemy: " + collision.gameObject.GetComponent<EnemyTemplate>().enemydata.id);
 
     }
 

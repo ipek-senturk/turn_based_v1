@@ -9,33 +9,26 @@ public class CombatTrigger : MonoBehaviour
     public InputManager InputManager;
     public PartyManager partyManager;
 
-    //public Controllers controllers 
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Enemy" )
+        if (collision.CompareTag("Enemy"))
         {
-
-            partyManager.getHeroStats();
-            InputManager.stopPlayer();
+            partyManager.GetHeroStats();
+            InputManager.StopPlayer();
 
             combatUI.SetActive(true);
-            Invoke("canvasScript", 0.2f);
-            Invoke("startCombatTrigger", 0.5f);
-
-           
+            Invoke(nameof(CanvasScript), 0.2f);
+            Invoke(nameof(StartCombatTrigger), 0.5f);
         }
-
     }
 
-    void startCombatTrigger()
+    void StartCombatTrigger()
     {
-        partyManager.startCombat();
+        partyManager.StartCombat();
     }
 
-    void canvasScript()
+    void CanvasScript()
     {
-        combatcanvasScript.startScript();
+        combatcanvasScript.StartScript();
     }
 }

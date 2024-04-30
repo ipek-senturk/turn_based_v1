@@ -24,8 +24,8 @@ public class MovePlayer : MonoBehaviour
     {
         if (playerInput.state == InputManager.ControllerState.Movable)
         {
-            movementInput.x = playerInput.getMovement().x;
-            movementInput.y = playerInput.getMovement().y;
+            movementInput.x = playerInput.GetMovement().x;
+            movementInput.y = playerInput.GetMovement().y;
 
             if (movementInput != Vector2.zero)
             {

@@ -1,30 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class HeroSelector : MonoBehaviour
 {
 
     public PartyManager partymanager;
-    public UIManager UiManager;
+    public UIManager UIManager;
     string selectedName;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             selectedName = collision.GetComponent<HeroStats>().warriorData.Name;
-            checkId();
+            CheckID();
+            print("Selected warrior: " + selectedName + " ID: " + collision.GetComponent<HeroStats>().warriorData.Name);
         }
     }
 
-    void checkId()
+    void CheckID()
     {
         foreach (var warrior in partymanager.warriorList)
         {
             if (warrior.WarriorName == selectedName)
             {
-                UiManager.selectedWarriorId = warrior.WarriorId;
+                UIManager.selectedWarriorId = warrior.WarriorId;
                 break;
             }
         }

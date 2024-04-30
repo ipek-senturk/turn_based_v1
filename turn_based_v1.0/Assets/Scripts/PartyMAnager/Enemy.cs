@@ -10,6 +10,6 @@ public class Enemy
     public int EnemyAtt { get; set; }
     public int EnemyID { get; set; }
     public Vector3 position { get; set; }
-    public GameObject EnemygameObject { get; set; }
+    public GameObject EnemyGameObject { get; set; }
 }
 

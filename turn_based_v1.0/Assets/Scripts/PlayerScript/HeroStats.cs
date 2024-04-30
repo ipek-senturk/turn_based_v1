@@ -43,12 +43,13 @@ public class HeroStats : MonoBehaviour
         }
 
         if (warriorData.HP >= 0)
-            updateUI();
+            UpdateUI();
 
     }
 
-    void updateUI()
+    void UpdateUI()
     {
-        HpAppPanel.gameObject.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
+        HpAppPanel.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
+        // HpAppPanel.gameObject.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
     }
 }
