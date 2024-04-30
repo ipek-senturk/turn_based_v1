@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
 
-        if (targetSelect)
+        if (targetSelect && partymanager.GetIsPlayersTurn())
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
                 moveCrossair();
@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if (playerSelect)
+        if (playerSelect && partymanager.GetIsPlayersTurn())
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -87,7 +87,7 @@ public class UIManager : MonoBehaviour
                     StartCoroutine(SpaceWait());
             }
         }
-        if (optionSelect)
+        if (optionSelect && partymanager.GetIsPlayersTurn())
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
                 optionSelected = selectFirstOption();

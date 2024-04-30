@@ -16,7 +16,7 @@ public class HeroSelector : MonoBehaviour
         {
             selectedName = collision.GetComponent<HeroStats>().warriorData.Name;
             CheckID();
-            print("Selected warrior: " + selectedName + " ID: " + collision.GetComponent<HeroStats>().warriorData.Name);
+            Debug.Log("Selected warrior: " + selectedName + " ID: " + collision.GetComponent<HeroStats>().warriorData.Name);
         }
     }
 

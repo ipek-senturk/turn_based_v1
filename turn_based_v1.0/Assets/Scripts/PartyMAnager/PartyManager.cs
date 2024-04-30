@@ -17,6 +17,7 @@ public class PartyManager : MonoBehaviour
     public HeroStats heroStats;
 
     private int heroturncount = 0;
+    private bool playersTurn = true;
 
     public void addWarriorToList(HeroStats.WarriorData warriorData, Vector3 position, GameObject warriorGameObject)
     {
@@ -49,6 +50,8 @@ public class PartyManager : MonoBehaviour
     {
         UIManager.gameObject.SetActive(true);
         UIManager.StartUIManager();
+        // Start combat with players' turn
+        playersTurn = true;
     }
 
 
@@ -60,8 +63,19 @@ public class PartyManager : MonoBehaviour
         }
     }
 
+    public bool GetIsPlayersTurn()
+    {
+        return playersTurn;
+    }
+
     public void GiveDamageToNPC(int target, int warriorId)
     {
+        if (!playersTurn)
+        {
+            // Prevent player attacks during enemies' turn
+            Debug.Log("It's not your turn!");
+            return;
+        }
         for (int i = 0; i < EnemyCombatList.Count; i++)
         {
             if (EnemyCombatList[i].EnemyID == target)
@@ -96,6 +110,7 @@ public class PartyManager : MonoBehaviour
         if (heroturncount >= warriorList.Count - 1)
         {
             // GiveDamageToPlayer();
+            playersTurn = false;
             StartCoroutine(SequenceEnemyAttacks());
             heroturncount = 0;
         }
@@ -141,6 +156,7 @@ public class PartyManager : MonoBehaviour
                 }
             }
         }
+        playersTurn = true;
     }
 
     private void EndScript()
