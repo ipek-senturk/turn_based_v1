@@ -271,12 +271,19 @@ MonoBehaviour:
     level: 1
     Name: Bob
     ATT: 10
+    magicList:
+    - {fileID: 11400000, guid: 1a2b168213009c74b9ce87f633519e6f, type: 2}
+    - {fileID: 11400000, guid: 0c9a4fb6c2cdae74193f9dd836824e8b, type: 2}
+    - {fileID: 11400000, guid: 57f3ed8908fc24144b5e7b5f945a1785, type: 2}
+    - {fileID: 11400000, guid: 9c9ac769ac002d34c8c984442c1357e5, type: 2}
   partyManager: {fileID: 0}
   HpAppPanel: {fileID: 0}
   mpPanel: {fileID: 0}
   NamePanel: {fileID: 0}
   levelPanel: {fileID: 0}
+  spellPanel: {fileID: 0}
   hero: 1
+  uiInventory: {fileID: 0}
 --- !u!95 &5606394244547385797
 Animator:
   serializedVersion: 5

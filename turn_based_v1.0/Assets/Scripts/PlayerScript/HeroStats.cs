@@ -12,23 +12,28 @@ public class HeroStats : MonoBehaviour
         public int level;
         public string Name;
         public int ATT;
+        public List<Magic> magicList;
+        public Inventory inventory;
     }
 
     [SerializeField]
     public WarriorData warriorData;
-
     public PartyManager partyManager;
     public GameObject HpAppPanel;
     public GameObject mpPanel;
     public GameObject NamePanel;
     public GameObject levelPanel;
+    public GameObject spellPanel;
     public bool hero;
+    
+    [SerializeField] private UIInventory uiInventory;
 
     private void Start()
     {
-        partyManager.addWarriorToList(warriorData, transform.position, gameObject);
+        warriorData.inventory = new Inventory();
+        uiInventory.SetInventory(warriorData.inventory);
+        partyManager.AddWarriorToList(warriorData, transform.position, gameObject);
     }
-
 
     public void RecieveDamage(int damage)
     {
@@ -46,10 +51,19 @@ public class HeroStats : MonoBehaviour
             UpdateUI();
 
     }
-
     void UpdateUI()
     {
         HpAppPanel.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
-        // HpAppPanel.gameObject.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
+        if(itemWorld != null)
+        {
+            // Touching the item
+            warriorData.inventory.AddItem(itemWorld.GetItem());
+            itemWorld.DestroySelf();
+        }
     }
 }

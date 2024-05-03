@@ -13,4 +13,6 @@ public class Warrior
     public int WarriorId { get; set; }
     public Vector3 WarriorPosition { get; set; }
     public GameObject WarriorGameObject { get; set; }
+    public List<Magic> MagicList { get; set; }
+    public Inventory Inventory { get; set; }
 }

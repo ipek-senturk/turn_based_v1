@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,17 +12,23 @@ public class UIManager : MonoBehaviour
     private Vector3[] arrayPositions;
     public GameObject HeroSelector;
     public GameObject FirstOptionMenu;
+    public GameObject magicMenu;
     public GameObject crosshair;
     public GameObject OptionSelector;
+    public GameObject magicSelector;
+    public List<TextMeshProUGUI> spellNameTexts;
 
     int crossairRotation = 0;
     int selectorRotation = 0;
     int selectionMenu = 0;
+    int magicSelectionMenu = 0;
     int optionSelected;
+    int magicSelected;
     
     bool playerSelect;
     bool optionSelect;
     bool targetSelect;
+    bool magicSelect;
 
     public int selectedWarriorId;
     public int targetID;
@@ -30,84 +38,138 @@ public class UIManager : MonoBehaviour
     public void StartUIManager()
     {
         HeroSelector.SetActive(true);
-        populateArrayPostions();
+        PopulateArrayPostions();
         HeroCordinateList();
         gameObject.transform.position = arrayPositions[0];
         HeroSelector.transform.position = HeroPositions[0];
         OptionSelector.transform.position = FirstOptionMenu.transform.GetChild(0).GetChild(0).transform.position;
         OptionSelector.SetActive(false);
+        magicSelector.transform.position = magicMenu.transform.GetChild(0).transform.position;
+        magicSelector.SetActive(false);
         crosshair.SetActive(false);
         optionSelected = 0;
+        magicSelected = 0;
         playerSelect = true;
         optionSelect = false;
         targetSelect = false;
+        magicSelect = false;
         spaceReady = true;
     }
-
     private void Update()
     {
-
-        if (targetSelect && partymanager.GetIsPlayersTurn())
+        if (gameObject.activeInHierarchy && partymanager.GetIsPlayersTurn())
+        {
+            HandleTargetSelection();
+            HandlePlayerSelection();
+            HandleOptionSelection();
+            HandleMagicSelection();
+        }
+    }
+    private void HandleTargetSelection()
+    {
+        if (!gameObject.activeInHierarchy) return;
+        if (targetSelect)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
-                moveCrossair();
-            if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
+            {
+                MoveCrossair();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
             {
                 partymanager.GiveDamageToNPC(targetID, selectedWarriorId);
                 targetSelect = false;
                 playerSelect = true;
-
-
-                clearHeroSelector();
+                ClearHeroSelector();
                 crosshair.SetActive(false);
-
-                if (gameObject.activeInHierarchy)
-                    StartCoroutine(SpaceWait());
-
-                moveHeroSelector();
-            }
-        }
-
-        if (playerSelect && partymanager.GetIsPlayersTurn())
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                moveHeroSelector();
-            }
-            if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
-            {
-                HeroPositions.RemoveAt(selectorRotation);
-
-                playerSelect = false;
-                optionSelect = true;
-
-                OptionSelector.SetActive(true);
-                OptionSelector.transform.position = FirstOptionMenu.transform.GetChild(0).GetChild(0).transform.position;
-                if (gameObject.activeInHierarchy)
-                    StartCoroutine(SpaceWait());
-            }
-        }
-        if (optionSelect && partymanager.GetIsPlayersTurn())
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-                optionSelected = selectFirstOption();
-            if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
-            {
-                if (optionSelected == 0)
-                {
-                    optionSelect = false;
-
-                    crosshair.SetActive(true);
-                    targetSelect = true;
-                    OptionSelector.SetActive(false);
-                }
-
-                if (gameObject.activeInHierarchy)
-                    StartCoroutine(SpaceWait());
+                StopAllCoroutines();
+                StartCoroutine(SpaceWait());
+                MoveHeroSelector();
             }
         }
     }
 
+    private void HandlePlayerSelection()
+    {
+        if (!gameObject.activeInHierarchy) return;
+        if (playerSelect)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                MoveHeroSelector();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
+            {
+                HeroPositions.RemoveAt(selectorRotation);
+                playerSelect = false;
+                optionSelect = true;
+                OptionSelector.SetActive(true);
+                OptionSelector.transform.position = FirstOptionMenu.transform.GetChild(0).GetChild(0).transform.position;
+                StartCoroutine(SpaceWait());
+            }
+        }
+    }
+
+    private void HandleOptionSelection()
+    {
+        if (!gameObject.activeInHierarchy) return;
+        if (optionSelect)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                optionSelected = SelectOption();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
+            {
+                if (optionSelected == 0)
+                {
+                    optionSelect = false;
+                    crosshair.SetActive(true);
+                    targetSelect = true;
+                    OptionSelector.SetActive(false);
+                }
+                else if (optionSelected == 1)
+                {
+                    optionSelect = false;
+                    OptionSelector.SetActive(false);
+                    magicSelect = true;
+                    magicMenu.SetActive(true);
+                    List<Magic> temp = partymanager.GetSpellList(selectedWarriorId);
+                    int level = partymanager.GetWarriorLevel(selectedWarriorId);
+                    for(int i = 0; i < level; i++)
+                    {
+                        spellNameTexts[i].text = temp[i].spellName;
+                    }
+                    magicSelector.SetActive(true);
+                }
+                StartCoroutine(SpaceWait());
+            }
+        }
+    }
+
+    private void HandleMagicSelection()
+    {
+        if (!gameObject.activeInHierarchy) return;
+        if (magicSelect)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                magicSelected = SelectMagic();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
+            {
+                if (magicSelected == 0)
+                {
+                    crosshair.SetActive(true);
+                    targetSelect = true;
+                    magicSelect = false;
+                    magicMenu.SetActive(false);
+                    magicSelector.SetActive(false);
+                }
+                StartCoroutine(SpaceWait());
+            }
+        }
+    }
+   
     private IEnumerator SpaceWait()
     {
         spaceReady = false;
@@ -115,18 +177,28 @@ public class UIManager : MonoBehaviour
         spaceReady = true;
     }
 
-    private int selectFirstOption()
+    private int SelectOption()
     {
         selectionMenu++;
         if (selectionMenu >= 3)
             selectionMenu = 0;
-
         OptionSelector.transform.position = FirstOptionMenu.transform.GetChild(0).GetChild(selectionMenu).transform.position;
-
+        
         return selectionMenu;
     }
 
-    private void moveHeroSelector()
+    private int SelectMagic()
+    {
+        magicSelectionMenu++;
+        if(magicSelectionMenu >= 4)
+            magicSelectionMenu = 0;
+        magicSelector.transform.position = magicMenu.transform.GetChild(0).GetChild(magicSelectionMenu).transform.position; 
+        
+        return magicSelected;
+    }
+
+
+    private void MoveHeroSelector()
     {
         selectorRotation++;
         if (selectorRotation >= HeroPositions.Count)
@@ -135,7 +207,7 @@ public class UIManager : MonoBehaviour
         HeroSelector.transform.position = HeroPositions[selectorRotation];
     }
 
-    public void moveCrossair()
+    public void MoveCrossair()
     {
         crossairRotation++;
         if (crossairRotation >= arrayPositions.Length)
@@ -144,7 +216,7 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void clearHeroSelector()
+    private void ClearHeroSelector()
     {
         if (HeroPositions.Count == 0)
         {
@@ -154,7 +226,7 @@ public class UIManager : MonoBehaviour
         HeroSelector.transform.position = HeroPositions[0];
     }
 
-    public void populateArrayPostions()
+    public void PopulateArrayPostions()
     {
         int i = 0;
         arrayPositions = new Vector3[partymanager.EnemyCombatList.Count];
@@ -182,9 +254,9 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void endCombat()
+    public void EndCombat()
     {
-        HeroSelector.gameObject.SetActive(false);
+        HeroSelector.SetActive(false);
         StopCoroutine(SpaceWait());
         gameObject.SetActive(false);
     }

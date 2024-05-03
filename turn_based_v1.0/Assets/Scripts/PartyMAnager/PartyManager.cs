@@ -19,7 +19,7 @@ public class PartyManager : MonoBehaviour
     private int heroturncount = 0;
     private bool playersTurn = true;
 
-    public void addWarriorToList(HeroStats.WarriorData warriorData, Vector3 position, GameObject warriorGameObject)
+    public void AddWarriorToList(HeroStats.WarriorData warriorData, Vector3 position, GameObject warriorGameObject)
     {
         warriorList.Add(new Warrior
         {
@@ -30,7 +30,8 @@ public class PartyManager : MonoBehaviour
             WarriorPosition = position,
             WarriorGameObject = warriorGameObject,
             WarriorAttack = warriorData.ATT,
-            WarriorId = warriorList.Count
+            WarriorId = warriorList.Count,
+            MagicList = warriorData.magicList
         });
     }
 
@@ -47,11 +48,11 @@ public class PartyManager : MonoBehaviour
         });
     }
     public void StartCombat()
-    {
-        UIManager.gameObject.SetActive(true);
-        UIManager.StartUIManager();
+    {        
         // Start combat with players' turn
         playersTurn = true;
+        UIManager.gameObject.SetActive(true);
+        UIManager.StartUIManager();
     }
 
 
@@ -68,6 +69,15 @@ public class PartyManager : MonoBehaviour
         return playersTurn;
     }
 
+    public List<Magic> GetSpellList(int warriorID)
+    {
+        return warriorList[warriorID].MagicList;
+    }
+
+    public int GetWarriorLevel(int warriorID)
+    {
+        return warriorList[warriorID].WarriorLevel;
+    }
     public void GiveDamageToNPC(int target, int warriorId)
     {
         if (!playersTurn)
@@ -91,15 +101,15 @@ public class PartyManager : MonoBehaviour
                 {
                     StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                     EnemyCombatList.RemoveAt(i);
-                    UIManager.populateArrayPostions();
+                    UIManager.PopulateArrayPostions();
                     if (EnemyCombatList.Count != 0)
                     {
-                        UIManager.moveCrossair();
+                        UIManager.MoveCrossair();
                     }
                 }
                 if (EnemyCombatList.Count == 0)
                 {
-                    UIManager.endCombat();
+                    UIManager.EndCombat();
                     EndScript();
                     break;
                 }
@@ -151,7 +161,7 @@ public class PartyManager : MonoBehaviour
                     warriorList.RemoveAt(targetHero);
                 if (warriorList.Count == 1)
                 {
-                    UIManager.endCombat();
+                    UIManager.EndCombat();
                     EndScript();
                 }
             }
@@ -163,10 +173,11 @@ public class PartyManager : MonoBehaviour
     {
         combatcanvasScript.DestroyChildren();
         inputManager.state = InputManager.ControllerState.Movable;
-        EnemySpawner.killSpawner();
+        EnemySpawner.KillSpawner();
         Invoke(nameof(ClearList), .2f);
 
         // CombatPanel.gameObject.SetActive(false);
+        playersTurn = false;
         CombatPanel.SetActive(false);
     }
 

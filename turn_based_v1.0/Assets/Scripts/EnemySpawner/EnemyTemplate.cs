@@ -49,9 +49,9 @@ public class EnemyTemplate : MonoBehaviour
 
     public void SendData()
     {
-        sendCombatData();
+        SendCombatData();
     }
-    public void sendCombatData()
+    public void SendCombatData()
     {
         partyManager.addEnemyToCombatList(enemydata, transform.position, gameObject);
         Invoke(nameof(SearchForPanels), 0.5f);

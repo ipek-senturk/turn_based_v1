@@ -19,17 +19,17 @@ public class spawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-            spawnEnemys();
+        if (collision.CompareTag("Player"))
+            SpawnEnemies();
 
         partyManager.EnemySpawner = this;
     }
-    public void killSpawner()
+    public void KillSpawner()
     {
         Destroy(gameObject);
     }
 
-    void spawnEnemys()
+    void SpawnEnemies()
     {
         for (int i = 0; i < enemyObject.Length; i++)
         {
@@ -41,7 +41,7 @@ public class spawner : MonoBehaviour
             newEnemy.GetComponent<EnemyTemplate>().enemydata.id = i;
             
             newEnemy.GetComponent<SpriteRenderer>().sprite= enemyObject[i].sprite;
-            newEnemy.gameObject.name = i.ToString();
+            newEnemy.name = i.ToString();
             newEnemy.GetComponent<EnemyTemplate>().SendData();
         }
         render.sprite = null;
