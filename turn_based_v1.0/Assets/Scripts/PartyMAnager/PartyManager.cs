@@ -91,6 +91,8 @@ public class PartyManager : MonoBehaviour
             if (EnemyCombatList[i].EnemyID == target)
             {
                 EnemyCombatList[i].EnemyHP -= warriorList[warriorId].WarriorAttack;
+                // EnemyCombatList[i].EnemyHP -= warriorList[warriorId].MagicList[0].damage;
+                // warriorList[warriorId].WarriorMp -= warriorList[warriorId].MagicList[0].manaCost;
 
                 StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
                 StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
@@ -185,6 +187,7 @@ public class PartyManager : MonoBehaviour
     {
         EnemyCombatList = new List<Enemy>();
     }
+
     private IEnumerator PlayAttackAnimation(Animator animator)
     {
         // Trigger attack animation
