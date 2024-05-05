@@ -27,7 +27,7 @@ public class HeroStats : MonoBehaviour
     public bool hero;
     
     [SerializeField] private UIInventory uiInventory;
-
+    
     private void Start()
     {
         warriorData.inventory = new Inventory();
