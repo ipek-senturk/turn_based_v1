@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ public class PartyManager : MonoBehaviour
         });
     }
 
-    public void addEnemyToCombatList(EnemyTemplate.EnemyData enemyData, Vector3 pos, GameObject gameObject)
+    public void AddEnemyToCombatList(EnemyTemplate.EnemyData enemyData, Vector3 pos, GameObject gameObject)
     {
         EnemyCombatList.Add(new Enemy
         {
@@ -54,8 +55,6 @@ public class PartyManager : MonoBehaviour
         UIManager.gameObject.SetActive(true);
         UIManager.StartUIManager();
     }
-
-
     public void GetHeroStats()
     {
         foreach (var warrior in warriorList)
@@ -91,8 +90,6 @@ public class PartyManager : MonoBehaviour
             if (EnemyCombatList[i].EnemyID == target)
             {
                 EnemyCombatList[i].EnemyHP -= warriorList[warriorId].WarriorAttack;
-                // EnemyCombatList[i].EnemyHP -= warriorList[warriorId].MagicList[0].damage;
-                // warriorList[warriorId].WarriorMp -= warriorList[warriorId].MagicList[0].manaCost;
 
                 StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
                 StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
@@ -121,7 +118,61 @@ public class PartyManager : MonoBehaviour
 
         if (heroturncount >= warriorList.Count - 1)
         {
-            // GiveDamageToPlayer();
+            playersTurn = false;
+            StartCoroutine(SequenceEnemyAttacks());
+            heroturncount = 0;
+        }
+        else
+            heroturncount++;
+    }
+    public void GiveDamageToNPC(int target, int warriorId, int magicSelected)
+    {
+        if (!playersTurn)
+        {
+            // Prevent player attacks during enemies' turn
+            Debug.Log("It's not your turn!");
+            return;
+        }
+        for (int i = 0; i < EnemyCombatList.Count; i++)
+        {
+            if (EnemyCombatList[i].EnemyID == target)
+            {
+                if (warriorList[warriorId].WarriorMp >= warriorList[warriorId].MagicList[magicSelected].manaCost)
+                {
+                    EnemyCombatList[i].EnemyHP -= warriorList[warriorId].MagicList[magicSelected].damage;
+                    warriorList[warriorId].WarriorMp -= warriorList[warriorId].MagicList[magicSelected].manaCost;
+
+                    StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
+                    StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+
+                    EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(warriorList[warriorId].MagicList[magicSelected].damage);
+
+                    if (EnemyCombatList[i].EnemyHP <= 0)
+                    {
+                        StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+                        EnemyCombatList.RemoveAt(i);
+                        UIManager.PopulateArrayPostions();
+                        if (EnemyCombatList.Count != 0)
+                        {
+                            UIManager.MoveCrossair();
+                        }
+                    }
+                    if (EnemyCombatList.Count == 0)
+                    {
+                        UIManager.EndCombat();
+                        EndScript();
+                        break;
+                    }
+                    break;
+                } else
+                {
+                    Debug.Log("Not enough mana");
+                }
+            }
+        }
+
+        if (heroturncount >= warriorList.Count - 1)
+        {
             playersTurn = false;
             StartCoroutine(SequenceEnemyAttacks());
             heroturncount = 0;
@@ -177,8 +228,6 @@ public class PartyManager : MonoBehaviour
         inputManager.state = InputManager.ControllerState.Movable;
         EnemySpawner.KillSpawner();
         Invoke(nameof(ClearList), .2f);
-
-        // CombatPanel.gameObject.SetActive(false);
         playersTurn = false;
         CombatPanel.SetActive(false);
     }
@@ -211,4 +260,5 @@ public class PartyManager : MonoBehaviour
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
     }
+
 }

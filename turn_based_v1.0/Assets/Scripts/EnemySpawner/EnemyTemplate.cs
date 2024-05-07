@@ -6,7 +6,6 @@ using UnityEngine;
 public class EnemyTemplate : MonoBehaviour
 {
     public PartyManager partyManager;
-
     public GameObject EnemyNamePanel;
     public GameObject EnemyHpPanel;
 
@@ -34,8 +33,8 @@ public class EnemyTemplate : MonoBehaviour
 
         if (enemydata.HP <= 0)
         {
-            Destroy(EnemyNamePanel.gameObject);
-            Destroy(EnemyHpPanel.gameObject);
+            Destroy(EnemyNamePanel);
+            Destroy(EnemyHpPanel);
             Destroy(gameObject);
         }
         if (enemydata.HP > 0)
@@ -53,7 +52,7 @@ public class EnemyTemplate : MonoBehaviour
     }
     public void SendCombatData()
     {
-        partyManager.addEnemyToCombatList(enemydata, transform.position, gameObject);
+        partyManager.AddEnemyToCombatList(enemydata, transform.position, gameObject);
         Invoke(nameof(SearchForPanels), 0.5f);
     }
 

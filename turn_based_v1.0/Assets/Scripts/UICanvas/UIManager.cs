@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     bool optionSelect;
     bool targetSelect;
     bool magicSelect;
+    bool isPhysicalAttack; // Flag to indicate if the attack is physical
 
     public int selectedWarriorId;
     public int targetID;
@@ -49,6 +50,7 @@ public class UIManager : MonoBehaviour
         crosshair.SetActive(false);
         optionSelected = 0;
         magicSelected = 0;
+        isPhysicalAttack = false;
         playerSelect = true;
         optionSelect = false;
         targetSelect = false;
@@ -76,7 +78,13 @@ public class UIManager : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
             {
-                partymanager.GiveDamageToNPC(targetID, selectedWarriorId);
+                if(isPhysicalAttack)
+                {
+                    partymanager.GiveDamageToNPC(targetID, selectedWarriorId);
+                }else
+                {
+                    partymanager.GiveDamageToNPC(targetID, selectedWarriorId, magicSelected);
+                }
                 targetSelect = false;
                 playerSelect = true;
                 ClearHeroSelector();
@@ -125,6 +133,7 @@ public class UIManager : MonoBehaviour
                     optionSelect = false;
                     crosshair.SetActive(true);
                     targetSelect = true;
+                    isPhysicalAttack = true;
                     OptionSelector.SetActive(false);
                 }
                 else if (optionSelected == 1)
@@ -157,7 +166,7 @@ public class UIManager : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Space) && spaceReady)
             {
-                if (magicSelected == 0)
+                if (magicSelected < partymanager.GetWarriorLevel(selectedWarriorId))
                 {
                     crosshair.SetActive(true);
                     targetSelect = true;

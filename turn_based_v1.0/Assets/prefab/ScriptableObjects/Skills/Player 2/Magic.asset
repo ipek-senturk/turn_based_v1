@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Magic
   m_EditorClassIdentifier: 
   id: 0
-  damage: 11
+  damage: 10
   manaCost: 11
   spellName: Spell 1
   sprite: {fileID: 0}

@@ -43,23 +43,35 @@ public class HeroStats : MonoBehaviour
         {
             if (!hero)
                 gameObject.SetActive(false);
-            HpAppPanel.gameObject.transform.Find(warriorData.Name+"HP").gameObject.SetActive(false);
-            NamePanel.gameObject.transform.Find(warriorData.Name).gameObject.SetActive(false);
+            HpAppPanel.transform.Find(warriorData.Name + "HP").gameObject.SetActive(false);
+            NamePanel.transform.Find(warriorData.Name).gameObject.SetActive(false);
         }
 
         if (warriorData.HP >= 0)
             UpdateUI();
+    }
 
+    public void CastSpell(int manaCost)
+    {
+        warriorData.mp -= manaCost;
+        if(warriorData.mp < 0)
+        {
+            warriorData.mp = 0;
+        }
+        UpdateManaPanel();
     }
     void UpdateUI()
     {
         HpAppPanel.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
     }
 
+    void UpdateManaPanel()
+    {
+        mpPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + warriorData.mp.ToString();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ItemWorld itemWorld = collision.GetComponent<ItemWorld>();
-        if(itemWorld != null)
+        if(collision.TryGetComponent<ItemWorld>(out var itemWorld))
         {
             // Touching the item
             warriorData.inventory.AddItem(itemWorld.GetItem());
