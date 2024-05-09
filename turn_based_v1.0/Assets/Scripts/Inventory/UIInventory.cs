@@ -21,11 +21,21 @@ public class UIInventory : MonoBehaviour
     public void SetInventory(Inventory inventory)
     {
         this.inventory = inventory;
-        inventory.OnItemListChanged += Inventory_OnItemListChanged;
+        inventory.OnItemListChanged += InventoryOnItemListChanged;
         RefreshInventoryItems();
     }
 
-    private void Inventory_OnItemListChanged(object sender, EventArgs e)
+    public void Show()
+    {
+        transform.gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        transform.gameObject.SetActive(false);
+    }
+
+    private void InventoryOnItemListChanged(object sender, EventArgs e)
     {
         RefreshInventoryItems();
     }
@@ -34,10 +44,11 @@ public class UIInventory : MonoBehaviour
     {
         foreach (Transform child in itemSlotContainer)
         {
-            if(child == itemSlotTemplate)
+            if (child == itemSlotTemplate)
                 continue;
             Destroy(child.gameObject);
         }
+        
         int x = 0;
         int y = 0;
         float itemSlotCellSize = 70f;
@@ -56,7 +67,6 @@ public class UIInventory : MonoBehaviour
             {
                 uiText.SetText("");
             }
-
 
             x++;
             if(x > 4)

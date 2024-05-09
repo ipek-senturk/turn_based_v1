@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe637be955e3bc458e9eb52c6ccb218, type: 3}
   m_Name: Npc2
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 50
   App: 1
   Name: Weird Slime
   Att: 1

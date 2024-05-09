@@ -35,6 +35,24 @@ public class HeroStats : MonoBehaviour
         partyManager.AddWarriorToList(warriorData, transform.position, gameObject);
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I) && hero)
+        {
+            Debug.Log("pressed i");
+
+            GameObject background = uiInventory.transform.gameObject;
+            if (background.activeSelf)
+            {
+                uiInventory.Hide();
+            }
+            else
+            {
+                uiInventory.Show();
+            }
+        }
+    }
+
     public void RecieveDamage(int damage)
     {
 
