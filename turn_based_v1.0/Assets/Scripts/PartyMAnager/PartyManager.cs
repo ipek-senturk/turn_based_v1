@@ -100,7 +100,7 @@ public class PartyManager : MonoBehaviour
                 {
                     StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                     EnemyCombatList.RemoveAt(i);
-                    UIManager.PopulateArrayPostions();
+                    UIManager.PopulateArrayPositions();
                     if (EnemyCombatList.Count != 0)
                     {
                         UIManager.MoveCrossair();
@@ -151,7 +151,7 @@ public class PartyManager : MonoBehaviour
                     {
                         StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                         EnemyCombatList.RemoveAt(i);
-                        UIManager.PopulateArrayPostions();
+                        UIManager.PopulateArrayPositions();
                         if (EnemyCombatList.Count != 0)
                         {
                             UIManager.MoveCrossair();
