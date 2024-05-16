@@ -85,7 +85,7 @@ public class PartyManager : MonoBehaviour
     {
         return warriorList[warriorID].MagicList[magicSelected].manaCost;
     }
-    public void GiveDamageToNPC(int target, int warriorId)
+    public void GiveDamageToNPC(int target, int warriorId, int magicSelected = -1)
     {
         if (!playersTurn)
         {
@@ -93,16 +93,32 @@ public class PartyManager : MonoBehaviour
             Debug.Log("It's not your turn!");
             return;
         }
+
         for (int i = 0; i < EnemyCombatList.Count; i++)
         {
             if (EnemyCombatList[i].EnemyID == target)
             {
-                EnemyCombatList[i].EnemyHP -= warriorList[warriorId].WarriorAttack;
+                int damage;
+                if (magicSelected >= 0)
+                {
+                    // Magic attack
+                    damage = warriorList[warriorId].MagicList[magicSelected].damage;
+                    int manaCost = warriorList[warriorId].MagicList[magicSelected].manaCost;
+                    warriorList[warriorId].WarriorMp -= manaCost; // Deduct mana cost
+                    warriorList[warriorId].WarriorGameObject.GetComponent<HeroStats>().CastSpell(manaCost); // Call CastSpell method
+                }
+                else
+                {
+                    // Physical attack
+                    damage = warriorList[warriorId].WarriorAttack;
+                }
+
+                EnemyCombatList[i].EnemyHP -= damage;
 
                 StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
                 StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
-                
-                EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(warriorList[warriorId].WarriorAttack);
+
+                EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(damage);
 
                 if (EnemyCombatList[i].EnemyHP <= 0)
                 {
@@ -114,12 +130,14 @@ public class PartyManager : MonoBehaviour
                         UIManager.MoveCrossair();
                     }
                 }
+
                 if (EnemyCombatList.Count == 0)
                 {
                     UIManager.EndCombat();
                     EndScript();
                     break;
                 }
+
                 break;
             }
         }
@@ -131,56 +149,9 @@ public class PartyManager : MonoBehaviour
             heroturncount = 0;
         }
         else
+        {
             heroturncount++;
-    }
-    public void GiveDamageToNPC(int target, int warriorId, int magicSelected)
-    {
-        if (!playersTurn)
-        {
-            // Prevent player attacks during enemies' turn
-            Debug.Log("It's not your turn!");
-            return;
         }
-        for (int i = 0; i < EnemyCombatList.Count; i++)
-        {
-            if (EnemyCombatList[i].EnemyID == target)
-            {
-                EnemyCombatList[i].EnemyHP -= warriorList[warriorId].MagicList[magicSelected].damage;
-                warriorList[warriorId].WarriorMp -= warriorList[warriorId].MagicList[magicSelected].manaCost;
-
-                StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
-                StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
-
-                EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(warriorList[warriorId].MagicList[magicSelected].damage);
-
-                if (EnemyCombatList[i].EnemyHP <= 0)
-                {
-                    StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
-                    EnemyCombatList.RemoveAt(i);
-                    UIManager.PopulateArrayPositions();
-                    if (EnemyCombatList.Count != 0)
-                    {
-                        UIManager.MoveCrossair();
-                    }
-                }
-                if (EnemyCombatList.Count == 0)
-                {
-                    UIManager.EndCombat();
-                    EndScript();
-                    break;
-                }
-                break;
-            }
-        }
-
-        if (heroturncount >= warriorList.Count - 1)
-        {
-            playersTurn = false;
-            StartCoroutine(SequenceEnemyAttacks());
-            heroturncount = 0;
-        }
-        else
-            heroturncount++;
     }
     private IEnumerator SequenceEnemyAttacks()
     {

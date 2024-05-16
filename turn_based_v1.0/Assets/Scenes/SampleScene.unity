@@ -491,7 +491,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 41}
+  m_AnchoredPosition: {x: 0, y: 95.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &319452939
@@ -537,7 +537,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 319452940}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1593972459}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnSpellButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &319452940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -707,7 +719,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 1647080544}
     m_SelectOnDown: {fileID: 1544694474}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 319452939}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -40954,7 +40966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 97}
+  m_AnchoredPosition: {x: 0, y: 38.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1078350333
@@ -41000,7 +41012,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1078350334}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1593972459}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnSpellButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1078350334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41766,6 +41790,10 @@ PrefabInstance:
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: spawnPosition
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: warriorData.level
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: magicList.Array.size
@@ -42574,7 +42602,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 375925773}
     m_SelectOnDown: {fileID: 1647080544}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 319452939}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -44293,11 +44321,7 @@ MonoBehaviour:
   FirstOptionMenu: {fileID: 6597289526711305261}
   magicMenu: {fileID: 1244825492}
   crosshair: {fileID: 946539067}
-  spellNameTexts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spellSelected: 0
   selectedWarriorId: 0
   targetID: 0
 --- !u!4 &1593972460
@@ -47089,7 +47113,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2032195121}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1593972459}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnSpellButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2032195121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47265,7 +47301,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2134387802}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1593972459}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnSpellButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2134387802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47498,7 +47546,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6135198057934050453, guid: bb7f272f1b13c954a9ce05dadd717fc7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6245155173304196837, guid: bb7f272f1b13c954a9ce05dadd717fc7, type: 3}
       propertyPath: m_Interactable
