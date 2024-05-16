@@ -13,18 +13,15 @@ public class UIManager : MonoBehaviour
     public GameObject FirstOptionMenu;
     public GameObject magicMenu;
     public GameObject crosshair;
-    public List<TextMeshProUGUI> spellNameTexts;
 
     int crossairRotation = 0;
     int selectorRotation = 0;
     int selectionMenu = 0;
-    // int magicSelectionMenu = 0;
+    int selectedSpellIndex = 0;
 
     bool playerSelect;
-    // bool optionSelect;
     bool targetSelect;
-    // bool magicSelect;
-    bool isPhysicalAttack; // Flag to indicate if the attack is physical
+    public bool spellSelected;
 
     public int selectedWarriorId;
     public int targetID;
@@ -43,7 +40,7 @@ public class UIManager : MonoBehaviour
         gameObject.transform.position = arrayPositions[0];
         HeroSelector.transform.position = HeroPositions[0];
         crosshair.SetActive(false);
-        isPhysicalAttack = false;
+        spellSelected = false;
         playerSelect = true;
         targetSelect = false;
         enterReady = true;
@@ -54,9 +51,8 @@ public class UIManager : MonoBehaviour
         if (partymanager.GetIsPlayersTurn())
         {
             HandlePlayerSelection();
-            HandleTargetSelection();
             HandleOptionSelection();
-            // HandleMagicSelection();
+            HandleTargetSelection();
         }
     }
 
@@ -68,7 +64,7 @@ public class UIManager : MonoBehaviour
             {
                 MoveHeroSelector();
             }
-            else if (Input.GetKeyDown(KeyCode.Return) && enterReady)
+            else if (Input.GetKeyDown(KeyCode.E) && enterReady)
             {
                 HeroPositions.RemoveAt(selectorRotation);
                 playerSelect = false;
@@ -112,10 +108,22 @@ public class UIManager : MonoBehaviour
             {
                 MoveCrossair();
             }
-            else if (Input.GetKeyDown(KeyCode.Return) && enterReady)
+            else if (Input.GetKeyDown(KeyCode.E) && enterReady)
             {
-                if (isPhysicalAttack)
+                if (spellSelected) // Check if it's magic attack
                 {
+                    Debug.Log("Spell damage or effects applied to NPC");
+                    if(partymanager.GetWarriorMana(selectedWarriorId) >= partymanager.GetManaCost(selectedWarriorId, selectedSpellIndex))
+                    {
+                        partymanager.GiveDamageToNPC(targetID, selectedWarriorId, selectedSpellIndex);
+                    } else
+                    {
+                        Debug.Log("Not enough mana");
+                    }
+                }
+                else
+                {
+                    Debug.Log("Physical damage");
                     partymanager.GiveDamageToNPC(targetID, selectedWarriorId);
                 }
                 targetSelect = false;
@@ -186,21 +194,37 @@ public class UIManager : MonoBehaviour
     }
     public void OnAttackButton()
     {
+        spellSelected = false;
         SetOptionButtonsInteractable(false);
         crosshair.SetActive(true);
         targetSelect = true;
-        isPhysicalAttack = true;
     }
     public void OnSkillsButton()
     {
+        spellSelected = true;
         magicMenu.SetActive(true);
+        SetMagicButtonsInteractable(false);
         List<Magic> temp = partymanager.GetSpellList(selectedWarriorId);
         int level = partymanager.GetWarriorLevel(selectedWarriorId);
         for (int i = 0; i < level; i++)
         {
-            spellNameTexts[i].text = temp[i].spellName;
+            magicMenu.transform.GetChild(0).transform.GetChild(i).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = temp[i].spellName;
+            magicMenu.transform.GetChild(0).transform.GetChild(i).GetComponent<Button>().interactable = true; 
         }
         Debug.Log("Magic Select");
+    }
+    public void OnSpellButtonClick(int spellIndex)
+    {
+        spellSelected = true;
+        SetOptionButtonsInteractable(false);
+        magicMenu.SetActive(false);
+        selectedSpellIndex = spellIndex;
+        if(spellSelected)
+        {
+            Debug.Log("Spell " + spellIndex + " selected!");
+        }
+        crosshair.SetActive(true);
+        targetSelect = true;
     }
     public void OnItemsButton()
     {
@@ -229,8 +253,18 @@ public class UIManager : MonoBehaviour
     private void SetOptionButtonsInteractable(bool interactable)
     {
         // Set interactable status for option buttons
-        FirstOptionMenu.transform.GetChild(0).transform.GetChild(0).GetComponent<Button>().interactable = interactable;
-        FirstOptionMenu.transform.GetChild(0).transform.GetChild(1).GetComponent<Button>().interactable = interactable;
-        FirstOptionMenu.transform.GetChild(0).transform.GetChild(2).GetComponent<Button>().interactable = interactable;
+        int i , len = 3;
+        for (i = 0; i < len; i++)
+        {
+            FirstOptionMenu.transform.GetChild(0).transform.GetChild(i).GetComponent<Button>().interactable = interactable;
+        }
+    }
+    private void SetMagicButtonsInteractable(bool interactable)
+    {
+        int i, len = 4;
+        for (i = 0; i < len; i++)
+        {
+            magicMenu.transform.GetChild(0).transform.GetChild(i).GetComponent<Button>().interactable = interactable;
+        }
     }
 }

@@ -77,6 +77,14 @@ public class PartyManager : MonoBehaviour
     {
         return warriorList[warriorID].WarriorLevel;
     }
+    public int GetWarriorMana(int warriorID)
+    {
+        return warriorList[warriorID].WarriorMp;
+    }
+    public int GetManaCost(int warriorID, int magicSelected)
+    {
+        return warriorList[warriorID].MagicList[magicSelected].manaCost;
+    }
     public void GiveDamageToNPC(int target, int warriorId)
     {
         if (!playersTurn)
@@ -137,37 +145,31 @@ public class PartyManager : MonoBehaviour
         {
             if (EnemyCombatList[i].EnemyID == target)
             {
-                if (warriorList[warriorId].WarriorMp >= warriorList[warriorId].MagicList[magicSelected].manaCost)
+                EnemyCombatList[i].EnemyHP -= warriorList[warriorId].MagicList[magicSelected].damage;
+                warriorList[warriorId].WarriorMp -= warriorList[warriorId].MagicList[magicSelected].manaCost;
+
+                StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
+                StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+
+                EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(warriorList[warriorId].MagicList[magicSelected].damage);
+
+                if (EnemyCombatList[i].EnemyHP <= 0)
                 {
-                    EnemyCombatList[i].EnemyHP -= warriorList[warriorId].MagicList[magicSelected].damage;
-                    warriorList[warriorId].WarriorMp -= warriorList[warriorId].MagicList[magicSelected].manaCost;
-
-                    StartCoroutine(PlayAttackAnimation(warriorList[warriorId].WarriorGameObject.GetComponent<Animator>()));
-                    StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
-
-                    EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(warriorList[warriorId].MagicList[magicSelected].damage);
-
-                    if (EnemyCombatList[i].EnemyHP <= 0)
+                    StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+                    EnemyCombatList.RemoveAt(i);
+                    UIManager.PopulateArrayPositions();
+                    if (EnemyCombatList.Count != 0)
                     {
-                        StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
-                        EnemyCombatList.RemoveAt(i);
-                        UIManager.PopulateArrayPositions();
-                        if (EnemyCombatList.Count != 0)
-                        {
-                            UIManager.MoveCrossair();
-                        }
+                        UIManager.MoveCrossair();
                     }
-                    if (EnemyCombatList.Count == 0)
-                    {
-                        UIManager.EndCombat();
-                        EndScript();
-                        break;
-                    }
-                    break;
-                } else
-                {
-                    Debug.Log("Not enough mana");
                 }
+                if (EnemyCombatList.Count == 0)
+                {
+                    UIManager.EndCombat();
+                    EndScript();
+                    break;
+                }
+                break;
             }
         }
 
