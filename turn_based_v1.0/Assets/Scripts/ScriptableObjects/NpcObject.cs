@@ -8,5 +8,5 @@ public class NpcObject : ScriptableObject
     public string Name;
     public int Att;
     public Sprite sprite;
-    public GameObject enemyGO;
+    // public GameObject enemyGO;
 }
