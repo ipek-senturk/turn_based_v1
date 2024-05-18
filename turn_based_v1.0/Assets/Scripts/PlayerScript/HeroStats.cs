@@ -38,7 +38,7 @@ public class HeroStats : MonoBehaviour
         }
         if (isMainPlayer)
         {
-            warriorData.inventory = new Inventory();
+            warriorData.inventory = new Inventory(UseItem);
             warriorData.inventory.AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 4 });
             warriorData.inventory.AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 4 });
             GameObject canvasInventory = GameObject.Find("Canvas Inventory");
@@ -46,7 +46,7 @@ public class HeroStats : MonoBehaviour
             uiInventory.SetInventory(warriorData.inventory);
         } else
         {
-            warriorData.inventory = new Inventory();
+            warriorData.inventory = new Inventory(UseItem);
         }
         partyManager.AddWarriorToList(warriorData, transform.position, gameObject);
     }
@@ -66,6 +66,19 @@ public class HeroStats : MonoBehaviour
             {
                 uiInventory.Show();
             }
+        }
+    }
+
+    public void UseItem(Item item)
+    {
+        switch (item.itemType)
+        {
+            case Item.ItemType.HealthPotion:
+                warriorData.inventory.RemoveItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+                break;
+            case Item.ItemType.ManaPotion:
+                warriorData.inventory.RemoveItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
+                break;
         }
     }
 
@@ -95,16 +108,22 @@ public class HeroStats : MonoBehaviour
     }
     void UpdateUI()
     {
+        int maxHP = 100;
         HpAppPanel.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
+        if(warriorData.HP > maxHP)
+        {
+            HpAppPanel.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + maxHP;
+        }
     }
 
     void UpdateManaPanel()
     {
+        int maxMP = 20;
         mpPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + warriorData.mp.ToString();
-    }
-    public bool GetIsMainPlayer()
-    {
-        return isMainPlayer;
+        if (warriorData.mp > maxMP)
+        {
+            HpAppPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + maxMP;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -115,5 +134,9 @@ public class HeroStats : MonoBehaviour
             warriorData.inventory.AddItem(itemWorld.GetItem());
             itemWorld.DestroySelf();
         }
+    }
+    public bool GetIsMainPlayer()
+    {
+        return isMainPlayer;
     }
 }

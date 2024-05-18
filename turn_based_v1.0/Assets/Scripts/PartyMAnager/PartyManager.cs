@@ -86,6 +86,10 @@ public class PartyManager : MonoBehaviour
     {
         return warriorList[warriorID].MagicList[magicSelected].manaCost;
     }
+    public Inventory GetInventory()
+    {
+        return warriorList[2].Inventory;
+    }
     public void GiveDamageToNPC(int target, int warriorId, int magicSelected = -1)
     {
         if (!playersTurn)
@@ -196,12 +200,51 @@ public class PartyManager : MonoBehaviour
         playersTurn = true;
     }
 
+    public void UseItem(int warriorID, int itemIndex)
+    {
+        if (!playersTurn)
+        {
+            // Prevent player attacks during enemies' turn
+            Debug.Log("It's not your turn!");
+            return;
+        }
+
+        int hpPoints = 50;
+        int mpPoints = 10;
+
+        if(itemIndex == 0)
+        {
+            // HP Potion
+            warriorList[warriorID].WarriorHP += hpPoints;
+            warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().RecieveDamage(-hpPoints);
+            warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+        } 
+        else if(itemIndex == 1)
+        {
+            // MP Potion
+            warriorList[warriorID].WarriorMp += mpPoints;
+            warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().CastSpell(-mpPoints);
+            warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
+        }
+
+        if (heroturncount >= warriorList.Count - 1)
+        {
+            playersTurn = false;
+            StartCoroutine(SequenceEnemyAttacks());
+            heroturncount = 0;
+        }
+        else
+        {
+            heroturncount++;
+        }
+    }
+
     private void EndScript()
     {
         combatcanvasScript.DestroyChildren();
         inputManager.state = InputManager.ControllerState.Movable;
         EnemySpawner.KillSpawner();
-        Invoke(nameof(ClearList), .2f);
+        Invoke(nameof(ClearList), 0.2f);
         playersTurn = false;
         CombatPanel.SetActive(false);
     }

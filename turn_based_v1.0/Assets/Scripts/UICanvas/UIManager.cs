@@ -12,16 +12,18 @@ public class UIManager : MonoBehaviour
     public GameObject HeroSelector;
     public GameObject FirstOptionMenu;
     public GameObject magicMenu;
+    public GameObject itemMenu;
     public GameObject crosshair;
 
     int crossairRotation = 0;
-    int selectorRotation = 0;
+    public int selectorRotation = 0;
     int selectionMenu = 0;
     int selectedSpellIndex = 0;
 
     bool playerSelect;
     bool targetSelect;
-    public bool spellSelected;
+    // for debug
+    bool spellSelected;
 
     public int selectedWarriorId;
     public int targetID;
@@ -197,6 +199,13 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    public void EndCombat()
+    {
+        HeroSelector.SetActive(false);
+        StopCoroutine(EnterWait());
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+    }
     public void OnAttackButton()
     {
         spellSelected = false;
@@ -233,14 +242,28 @@ public class UIManager : MonoBehaviour
     }
     public void OnItemsButton()
     {
+        itemMenu.SetActive(true);
+        // SetOptionButtonsInteractable(false);
+        List<Item> temp = partymanager.GetInventory().GetItemList();
+        itemMenu.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "HP Potion x" + temp[0].amount;
+        itemMenu.transform.GetChild(0).transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "MP Potion x" + temp[1].amount;
         Debug.Log("Item select");
     }
-    public void EndCombat()
+    public void OnItemButtonClick(int itemIndex)
     {
-        HeroSelector.SetActive(false);
-        StopCoroutine(EnterWait());
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        SetOptionButtonsInteractable(false);
+        itemMenu.SetActive(false);
+        List<Item> temp = partymanager.GetInventory().GetItemList();
+        if (temp[itemIndex].amount > 0)
+        {
+            // 2 is the main hero's id
+            partymanager.UseItem(2, itemIndex);
+        } else
+        {
+            Debug.Log("No item");
+        }
+        playerSelect = true;
+        ClearHeroSelector();
     }
     private void SelectFirstButtonInMenu()
     {
@@ -255,21 +278,26 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    private void SetOptionButtonsInteractable(bool interactable)
+    private void SetButtonsInteractable(Transform menuTransform, int buttonCount, bool interactable)
     {
-        // Set interactable status for option buttons
-        int i , len = 3;
-        for (i = 0; i < len; i++)
+        for (int i = 0; i < buttonCount; i++)
         {
-            FirstOptionMenu.transform.GetChild(0).transform.GetChild(i).GetComponent<Button>().interactable = interactable;
+            menuTransform.GetChild(0).GetChild(i).GetComponent<Button>().interactable = interactable;
         }
     }
+
+    private void SetOptionButtonsInteractable(bool interactable)
+    {
+        SetButtonsInteractable(FirstOptionMenu.transform, 3, interactable);
+    }
+
     private void SetMagicButtonsInteractable(bool interactable)
     {
-        int i, len = 4;
-        for (i = 0; i < len; i++)
-        {
-            magicMenu.transform.GetChild(0).transform.GetChild(i).GetComponent<Button>().interactable = interactable;
-        }
+        SetButtonsInteractable(magicMenu.transform, 4, interactable);
+    }
+
+    private void SetItemButtonsInteractable(bool interactable)
+    {
+        SetButtonsInteractable(itemMenu.transform, 2, interactable);
     }
 }
