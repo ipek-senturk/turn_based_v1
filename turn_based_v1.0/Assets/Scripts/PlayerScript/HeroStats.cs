@@ -24,20 +24,30 @@ public class HeroStats : MonoBehaviour
     public GameObject NamePanel;
     public GameObject levelPanel;
     public GameObject spellPanel;
-    public bool hero;
+    [SerializeField] bool isMainPlayer;
     
+    [SerializeField] private UIInventory uiInventoryPrefab;
     [SerializeField] private UIInventory uiInventory;
-    
+
     private void Start()
     {
-        warriorData.inventory = new Inventory();
-        uiInventory.SetInventory(warriorData.inventory);
+        if (gameObject.CompareTag("Mage"))
+        {
+            isMainPlayer = true;
+        }
+        if (isMainPlayer)
+        {
+            warriorData.inventory = new Inventory();
+            GameObject canvasInventory = GameObject.Find("Canvas Inventory");
+            uiInventory = Instantiate(uiInventoryPrefab, canvasInventory.transform);
+            uiInventory.SetInventory(warriorData.inventory);
+        }
         partyManager.AddWarriorToList(warriorData, transform.position, gameObject);
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) && hero)
+        if (Input.GetKeyDown(KeyCode.I) && isMainPlayer)
         {
             Debug.Log("pressed i");
 
@@ -59,7 +69,7 @@ public class HeroStats : MonoBehaviour
         warriorData.HP -= damage;
         if (warriorData.HP <= 0)
         {
-            if (!hero)
+            if (!isMainPlayer)
                 gameObject.SetActive(false);
             HpAppPanel.transform.Find(warriorData.Name + "HP").gameObject.SetActive(false);
             NamePanel.transform.Find(warriorData.Name).gameObject.SetActive(false);

@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - EnemyHpPanel
   - EnemyNamesPanel
+  - Canvas Inventory
+  - Mage
   layers:
   - Default
   - TransparentFX

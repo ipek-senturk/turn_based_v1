@@ -12,8 +12,8 @@ public class Inventory
     {
         itemList = new List<Item>();
 
-        AddItem(new Item {itemType = Item.ItemType.HealthPotion, amount = 1});
-        AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
+        AddItem(new Item {itemType = Item.ItemType.HealthPotion, amount = 4});
+        AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 4});
      
         Debug.Log("Inventory created");
         Debug.Log("Item count is " + itemList.Count);

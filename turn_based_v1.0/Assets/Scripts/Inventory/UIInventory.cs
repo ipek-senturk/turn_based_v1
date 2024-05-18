@@ -51,7 +51,7 @@ public class UIInventory : MonoBehaviour
         
         int x = 0;
         int y = 0;
-        float itemSlotCellSize = 70f;
+        float itemSlotCellSize = 50f;
         foreach(Item item in inventory.GetItemList())
         {
             RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
