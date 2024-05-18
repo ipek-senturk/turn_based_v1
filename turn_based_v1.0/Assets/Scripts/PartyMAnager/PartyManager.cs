@@ -86,9 +86,22 @@ public class PartyManager : MonoBehaviour
     {
         return warriorList[warriorID].MagicList[magicSelected].manaCost;
     }
+    public int FindMageInList()
+    {
+        int index = 0;
+        for (int i = 0; i < warriorList.Count; i++)
+        {
+            if (warriorList[i].WarriorName == "Mage")
+            {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
     public Inventory GetInventory()
     {
-        return warriorList[2].Inventory;
+        return warriorList[FindMageInList()].Inventory;
     }
     public void GiveDamageToNPC(int target, int warriorId, int magicSelected = -1)
     {
@@ -217,14 +230,14 @@ public class PartyManager : MonoBehaviour
             // HP Potion
             warriorList[warriorID].WarriorHP += hpPoints;
             warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().RecieveDamage(-hpPoints);
-            warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+            warriorList[FindMageInList()].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
         } 
         else if(itemIndex == 1)
         {
             // MP Potion
             warriorList[warriorID].WarriorMp += mpPoints;
             warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().CastSpell(-mpPoints);
-            warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
+            warriorList[FindMageInList()].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
         }
 
         if (heroturncount >= warriorList.Count - 1)

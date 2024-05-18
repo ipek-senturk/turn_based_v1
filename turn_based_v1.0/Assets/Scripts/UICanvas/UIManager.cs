@@ -254,10 +254,12 @@ public class UIManager : MonoBehaviour
         SetOptionButtonsInteractable(false);
         itemMenu.SetActive(false);
         List<Item> temp = partymanager.GetInventory().GetItemList();
+        // item type'a göre değişicek
+        // bütün hp potları kullanılırsa mp potu kullanamıyor çünkü hp pot siliniyor 0. index'ten
+        // mp pot 0. index'e geliyor yani 
         if (temp[itemIndex].amount > 0)
         {
-            // 2 is the main hero's id
-            partymanager.UseItem(2, itemIndex);
+            partymanager.UseItem(selectedWarriorId, itemIndex);
         } else
         {
             Debug.Log("No item");
