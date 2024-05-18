@@ -27,12 +27,17 @@ public class UIManager : MonoBehaviour
     public int targetID;
 
     private bool enterReady;
-
     public void StartUIManager()
     {
         HeroSelector.SetActive(true);
         PopulateArrayPositions();
         HeroPositionsList();
+
+        if (arrayPositions.Length == 0)
+        {
+            Debug.LogError("No enemies found to initialize UIManager.");
+            return;
+        }
 
         // Deactivate buttons in the beginning
         SetOptionButtonsInteractable(false);

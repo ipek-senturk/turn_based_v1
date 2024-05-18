@@ -23,6 +23,7 @@ public class spawner : MonoBehaviour
             SpawnEnemies();
 
         partyManager.EnemySpawner = this;
+        gameObject.GetComponent<Animator>().enabled = false;
     }
     public void KillSpawner()
     {

@@ -41589,7 +41589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1644419556017696542, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: m_TagString
-      value: Mage
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2287433998385276632, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: playerInput
@@ -41631,6 +41631,14 @@ PrefabInstance:
       propertyPath: partyManager
       value: 
       objectReference: {fileID: 203898534}
+    - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
+      propertyPath: warriorData.ATT
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
+      propertyPath: warriorData.Name
+      value: Mage
+      objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: uiInventoryPrefab
       value: 
@@ -47288,13 +47296,13 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1959210945}
+  - {fileID: 509278934}
   - {fileID: 480345855}
   - {fileID: 203898535}
   - {fileID: 1593972460}
   - {fileID: 1472716715}
   - {fileID: 1406903611}
   - {fileID: 933605012390295099}
-  - {fileID: 509278934}
   - {fileID: 1363039883682917169}
   - {fileID: 1977791264}
   - {fileID: 182116883}

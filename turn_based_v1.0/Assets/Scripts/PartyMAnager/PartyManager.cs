@@ -32,7 +32,8 @@ public class PartyManager : MonoBehaviour
             WarriorGameObject = warriorGameObject,
             WarriorAttack = warriorData.ATT,
             WarriorId = warriorList.Count,
-            MagicList = warriorData.magicList
+            MagicList = warriorData.magicList,
+            Inventory = warriorData.inventory
         });
     }
 

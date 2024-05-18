@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static HeroStats;
 public class HeroStats : MonoBehaviour
 {
     [System.Serializable]
@@ -38,16 +39,21 @@ public class HeroStats : MonoBehaviour
         if (isMainPlayer)
         {
             warriorData.inventory = new Inventory();
+            warriorData.inventory.AddItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 4 });
+            warriorData.inventory.AddItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 4 });
             GameObject canvasInventory = GameObject.Find("Canvas Inventory");
             uiInventory = Instantiate(uiInventoryPrefab, canvasInventory.transform);
             uiInventory.SetInventory(warriorData.inventory);
+        } else
+        {
+            warriorData.inventory = new Inventory();
         }
         partyManager.AddWarriorToList(warriorData, transform.position, gameObject);
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) && isMainPlayer)
+        if (Input.GetKeyDown(KeyCode.I) && isMainPlayer && gameObject.GetComponent<MovePlayer>().playerInput.state == InputManager.ControllerState.Movable)
         {
             Debug.Log("pressed i");
 
@@ -65,7 +71,6 @@ public class HeroStats : MonoBehaviour
 
     public void RecieveDamage(int damage)
     {
-
         warriorData.HP -= damage;
         if (warriorData.HP <= 0)
         {
@@ -97,9 +102,14 @@ public class HeroStats : MonoBehaviour
     {
         mpPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + warriorData.mp.ToString();
     }
+    public bool GetIsMainPlayer()
+    {
+        return isMainPlayer;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<ItemWorld>(out var itemWorld))
+        if(collision.TryGetComponent<ItemWorld>(out var itemWorld) && GetIsMainPlayer())
         {
             // Touching the item
             warriorData.inventory.AddItem(itemWorld.GetItem());
