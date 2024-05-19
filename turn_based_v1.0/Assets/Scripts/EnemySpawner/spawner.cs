@@ -6,7 +6,7 @@ public class spawner : MonoBehaviour
 {
     public PartyManager partyManager;
     public NpcObject[] enemyObject;
-    public GameObject EnemyTemplate;
+    public GameObject[] EnemyTemplate;
     public GameObject[] SpawnLocation;
     SpriteRenderer render;
     public int ID;
@@ -34,7 +34,7 @@ public class spawner : MonoBehaviour
     {
         for (int i = 0; i < enemyObject.Length; i++)
         {
-            var newEnemy = Instantiate(EnemyTemplate, SpawnLocation[i].transform.position, Quaternion.identity);
+            var newEnemy = Instantiate(EnemyTemplate[i], SpawnLocation[i].transform.position, Quaternion.identity);
             newEnemy.transform.parent = gameObject.transform;
             newEnemy.GetComponent<EnemyTemplate>().enemydata.HP = enemyObject[i].HP;
             newEnemy.GetComponent<EnemyTemplate>().enemydata.Att = enemyObject[i].Att;
