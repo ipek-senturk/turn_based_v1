@@ -40921,7 +40921,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c618d9c4a3f014b4d90073751fcb1d08, type: 2}
   - {fileID: 11400000, guid: 04667f809208f324bacb950fe12a5dbd, type: 2}
   - {fileID: 11400000, guid: c618d9c4a3f014b4d90073751fcb1d08, type: 2}
-  EnemyTemplate: {fileID: 9215405641351373017, guid: 159b47d7919f1014d80676c93373d70e, type: 3}
+  EnemyTemplate:
+  - {fileID: 9215405641351373017, guid: 159b47d7919f1014d80676c93373d70e, type: 3}
+  - {fileID: 9215405641351373017, guid: 93582e5fd95ba254cba0cc4e268d7bc7, type: 3}
+  - {fileID: 9215405641351373017, guid: 159b47d7919f1014d80676c93373d70e, type: 3}
   SpawnLocation:
   - {fileID: 1185854874}
   - {fileID: 1396060050}
