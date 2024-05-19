@@ -80,4 +80,16 @@ public class Inventory
     {
         return itemList;
     }
+
+    public int GetItemIndex(Item.ItemType itemType)
+    {
+        for (int i = 0; i < itemList.Count; i++)
+        {
+            if (itemList[i].itemType == itemType)
+            {
+                return i;
+            }
+        }
+        return -1; // Return -1 if the item is not found
+    }
 }

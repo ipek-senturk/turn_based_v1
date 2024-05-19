@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     public int targetID;
 
     private bool enterReady;
+    private Dictionary<Item.ItemType, int> itemIndexMapping;
     public void StartUIManager()
     {
         HeroSelector.SetActive(true);
@@ -240,33 +241,81 @@ public class UIManager : MonoBehaviour
         crosshair.SetActive(true);
         targetSelect = true;
     }
+
     public void OnItemsButton()
     {
         itemMenu.SetActive(true);
-        // SetOptionButtonsInteractable(false);
+        UpdateItemButtonUI();
+    }
+
+    public void UpdateItemButtonUI()
+    {
+        // Get the inventory list
         List<Item> temp = partymanager.GetInventory().GetItemList();
-        itemMenu.transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "HP Potion x" + temp[0].amount;
-        itemMenu.transform.GetChild(0).transform.GetChild(1).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "MP Potion x" + temp[1].amount;
+
+        // Get item indices by type
+        int hpPotionIndex = partymanager.GetInventory().GetItemIndex(Item.ItemType.HealthPotion);
+        int mpPotionIndex = partymanager.GetInventory().GetItemIndex(Item.ItemType.ManaPotion);
+
+        // Get the buttons
+        var hpPotionButton = itemMenu.transform.GetChild(0).transform.GetChild(0).GetComponent<Button>();
+        var mpPotionButton = itemMenu.transform.GetChild(0).transform.GetChild(1).GetComponent<Button>();
+
+        // Update button text
+        hpPotionButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "HP Potion x" + (hpPotionIndex != -1 ? temp[hpPotionIndex].amount : 0);
+        mpPotionButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "MP Potion x" + (mpPotionIndex != -1 ? temp[mpPotionIndex].amount : 0);
+
         Debug.Log("Item select");
     }
     public void OnItemButtonClick(int itemIndex)
     {
         SetOptionButtonsInteractable(false);
         itemMenu.SetActive(false);
-        List<Item> temp = partymanager.GetInventory().GetItemList();
-        // item type'a göre değişicek
-        // bütün hp potları kullanılırsa mp potu kullanamıyor çünkü hp pot siliniyor 0. index'ten
-        // mp pot 0. index'e geliyor yani 
-        if (temp[itemIndex].amount > 0)
+
+        // Map the UI button index to the item type
+        Item.ItemType itemType = itemIndex == 0 ? Item.ItemType.HealthPotion : Item.ItemType.ManaPotion;
+
+        // Use the item type directly
+        partymanager.UseItem(selectedWarriorId, itemType);
+
+        playerSelect = true;
+        ClearHeroSelector();
+        UpdateItemButtonUI(); // Refresh the item menu after using an item
+    }
+
+    /*
+    public void OnItemButtonClick(int itemIndex)
+    {
+        SetOptionButtonsInteractable(false);
+        itemMenu.SetActive(false);
+
+        // Map the UI button index to the item type
+        Item.ItemType itemType = itemIndex == 0 ? Item.ItemType.HealthPotion : Item.ItemType.ManaPotion;
+
+        // Get the actual index from the mapping
+        if (itemIndexMapping.TryGetValue(itemType, out int actualIndex))
         {
-            partymanager.UseItem(selectedWarriorId, itemIndex);
-        } else
+            List<Item> temp = partymanager.GetInventory().GetItemList();
+
+            if (temp[actualIndex].amount > 0)
+            {
+                partymanager.UseItem(selectedWarriorId, actualIndex);
+            }
+            else
+            {
+                Debug.Log("No item");
+            }
+        }
+        else
         {
             Debug.Log("No item");
         }
+
         playerSelect = true;
         ClearHeroSelector();
-    }
+        itemMenu.SetActive(false);
+        // OnItemsButton(); // Refresh the item menu after using an item
+    } */
     private void SelectFirstButtonInMenu()
     {
         // Select Attack button

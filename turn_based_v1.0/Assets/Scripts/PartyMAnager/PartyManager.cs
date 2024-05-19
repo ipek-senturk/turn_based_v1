@@ -212,33 +212,48 @@ public class PartyManager : MonoBehaviour
         }
         playersTurn = true;
     }
-
-    public void UseItem(int warriorID, int itemIndex)
+    public void UseItem(int warriorID, Item.ItemType itemType)
     {
         if (!playersTurn)
         {
-            // Prevent player attacks during enemies' turn
+            // Prevent player actions during enemies' turn
             Debug.Log("It's not your turn!");
+            return;
+        }
+
+        List<Item> temp = GetInventory().GetItemList();
+        int itemIndex = GetInventory().GetItemIndex(itemType);
+
+        if (itemIndex == -1 || temp[itemIndex].amount <= 0)
+        {
+            Debug.Log("No item");
             return;
         }
 
         int hpPoints = 50;
         int mpPoints = 10;
 
-        if(itemIndex == 0)
+        if (itemType == Item.ItemType.HealthPotion)
         {
             // HP Potion
             warriorList[warriorID].WarriorHP += hpPoints;
             warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().RecieveDamage(-hpPoints);
             warriorList[FindMageInList()].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
-        } 
-        else if(itemIndex == 1)
+        }
+        else if (itemType == Item.ItemType.ManaPotion)
         {
             // MP Potion
             warriorList[warriorID].WarriorMp += mpPoints;
             warriorList[warriorID].WarriorGameObject.GetComponent<HeroStats>().CastSpell(-mpPoints);
             warriorList[FindMageInList()].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
         }
+
+        // Decrease the item amount in the inventory
+        // temp[itemIndex].amount--;
+        // if (temp[itemIndex].amount <= 0)
+        // {
+        //     temp.RemoveAt(itemIndex); // Remove the item if amount is zero
+        // }
 
         if (heroturncount >= warriorList.Count - 1)
         {
@@ -251,7 +266,6 @@ public class PartyManager : MonoBehaviour
             heroturncount++;
         }
     }
-
     private void EndScript()
     {
         combatcanvasScript.DestroyChildren();
