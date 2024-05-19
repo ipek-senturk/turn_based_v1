@@ -77,9 +77,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1998805613
+  m_SortingLayer: 5
+  m_SortingOrder: 1
   m_Sprite: {fileID: -1141782128, guid: 73f53472aec3a364bb05f73d21c76e60, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  collisionOffset: 0.05
+  collisionOffset: 0
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -221,23 +221,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   warriorData:
-    HP: 100
-    mp: 20
+    HP: 50
+    mp: 10
     level: 1
-    Name: Bob
-    ATT: 10
+    Name: Bob 2
+    ATT: 12
     magicList:
-    - {fileID: 11400000, guid: 1a2b168213009c74b9ce87f633519e6f, type: 2}
-    - {fileID: 11400000, guid: 0c9a4fb6c2cdae74193f9dd836824e8b, type: 2}
-    - {fileID: 11400000, guid: 57f3ed8908fc24144b5e7b5f945a1785, type: 2}
-    - {fileID: 11400000, guid: 9c9ac769ac002d34c8c984442c1357e5, type: 2}
+    - {fileID: 11400000, guid: 222612ee5ebaf3b4e845e592e7f54bea, type: 2}
+    - {fileID: 11400000, guid: 277ec279861d92547b60f422aa3eb212, type: 2}
+    - {fileID: 11400000, guid: f4a237689c4569e4ca773e257cf2b93c, type: 2}
+    - {fileID: 11400000, guid: 8c2146133220faa4dbe4d025dafc7f75, type: 2}
   partyManager: {fileID: 0}
   HpAppPanel: {fileID: 0}
   mpPanel: {fileID: 0}
   NamePanel: {fileID: 0}
   levelPanel: {fileID: 0}
   spellPanel: {fileID: 0}
-  hero: 1
+  isMainPlayer: 0
+  uiInventoryPrefab: {fileID: 4402216121814561888, guid: 39f689f85e0845c4195585f8c801f66b, type: 3}
   uiInventory: {fileID: 0}
 --- !u!95 &5606394244547385797
 Animator:
@@ -249,7 +250,7 @@ Animator:
   m_GameObject: {fileID: 1644419556017696542}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ca85c0e66b388fb45bb5f7c8fa5504ca, type: 2}
+  m_Controller: {fileID: 9100000, guid: d69d9fd6023c2fa408495fa29388ff4d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -332,7 +333,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1998805613
   m_SortingLayer: 5
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1806606257, guid: 0dd0b4965028c3a4096d3b53781f3028, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

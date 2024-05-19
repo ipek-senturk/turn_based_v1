@@ -842,6 +842,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5606394244547385797, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d69d9fd6023c2fa408495fa29388ff4d, type: 2}
     - target: {fileID: 5784046161846450762, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: combatUI
       value: 
@@ -41729,6 +41733,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5606394244547385797, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d69d9fd6023c2fa408495fa29388ff4d, type: 2}
     - target: {fileID: 5784046161846450762, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: combatUI
       value: 
@@ -42086,6 +42094,10 @@ PrefabInstance:
       propertyPath: uiInventoryPrefab
       value: 
       objectReference: {fileID: 4402216121814561888, guid: 39f689f85e0845c4195585f8c801f66b, type: 3}
+    - target: {fileID: 5606394244547385797, guid: 02f84e557abd041479f0e670791570b6, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3970107c58956444c9169b72ca1a084a, type: 2}
     - target: {fileID: 5784046161846450762, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: combatUI
       value: 
@@ -47018,38 +47030,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 625522081001375760, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 625522081001375760, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 625522081001375760, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1998805613
-      objectReference: {fileID: 0}
     - target: {fileID: 1644419556017696542, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: m_Name
       value: Hero (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1644419556017696542, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2287433998385276632, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: playerInput
       value: 
       objectReference: {fileID: 480345853}
-    - target: {fileID: 2287433998385276632, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: collisionOffset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: hero
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: mpPanel
       value: 
@@ -47078,78 +47066,6 @@ PrefabInstance:
       propertyPath: partyManager
       value: 
       objectReference: {fileID: 203898534}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: spawnPosition
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.HP
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.mp
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.ATT
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.Name
-      value: Bob 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: uiInventoryPrefab
-      value: 
-      objectReference: {fileID: 4402216121814561888, guid: 39f689f85e0845c4195585f8c801f66b, type: 3}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.level
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: magicList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: magicList.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 222612ee5ebaf3b4e845e592e7f54bea, type: 2}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: magicList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 277ec279861d92547b60f422aa3eb212, type: 2}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: magicList.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: f4a237689c4569e4ca773e257cf2b93c, type: 2}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: magicList.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8c2146133220faa4dbe4d025dafc7f75, type: 2}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.magicList.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.magicList.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 222612ee5ebaf3b4e845e592e7f54bea, type: 2}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.magicList.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 277ec279861d92547b60f422aa3eb212, type: 2}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.magicList.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: f4a237689c4569e4ca773e257cf2b93c, type: 2}
-    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: warriorData.magicList.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8c2146133220faa4dbe4d025dafc7f75, type: 2}
-    - target: {fileID: 3566153507493063912, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5784046161846450762, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: combatUI
       value: 
