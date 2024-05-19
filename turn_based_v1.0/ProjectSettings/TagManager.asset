@@ -19,8 +19,8 @@ TagManager:
   - UI
   - Buildings
   - Buildings 2. Layer
+  - Buildings 3. Layer
   - Options
-  - 
   - 
   - 
   - 
@@ -67,6 +67,9 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 1856452715
+    locked: 0
+  - name: Fog
+    uniqueID: 295568465
     locked: 0
   - name: Options
     uniqueID: 2642102399
