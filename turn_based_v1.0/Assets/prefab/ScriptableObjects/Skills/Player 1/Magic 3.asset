@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 40
   manaCost: 50
-  spellName: Spell 4
+  spellName: Mage 4
   sprite: {fileID: 0}

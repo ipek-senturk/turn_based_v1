@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   damage: 10
-  manaCost: 11
-  spellName: Spell 1
+  manaCost: 10
+  spellName: Bob 1-1
   sprite: {fileID: 0}

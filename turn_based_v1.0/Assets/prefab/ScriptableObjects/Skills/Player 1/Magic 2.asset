@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 20
   manaCost: 20
-  spellName: Spell 3
+  spellName: Mage 3
   sprite: {fileID: 0}

@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 11
   manaCost: 9
-  spellName: Spell 2
+  spellName: Bob 3-2
   sprite: {fileID: 0}

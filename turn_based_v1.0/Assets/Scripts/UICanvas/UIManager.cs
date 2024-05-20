@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     bool playerSelect;
     bool targetSelect;
     // for debug
-    bool spellSelected;
+    public bool spellSelected;
 
     public int selectedWarriorId;
     public int targetID;
@@ -88,7 +88,8 @@ public class UIManager : MonoBehaviour
     {
         if (!playerSelect) // Ensure player is selected
         {
-            if (Input.GetKeyDown(KeyCode.E) && enterReady)
+            // Don't change Keycode.Return otherwise magical attack won't work
+            if (Input.GetKeyDown(KeyCode.Return) && enterReady)
             {
                 // Handle button click
                 switch (selectionMenu)

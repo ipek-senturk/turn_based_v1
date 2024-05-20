@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 41
   manaCost: 49
-  spellName: Spell 4
+  spellName: Bob 3-4
   sprite: {fileID: 0}

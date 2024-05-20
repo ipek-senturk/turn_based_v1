@@ -382,7 +382,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1644419556017696542, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: m_Name
-      value: Hero (4)
+      value: Hero (3)
       objectReference: {fileID: 0}
     - target: {fileID: 1644419556017696542, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: m_IsActive
@@ -40735,6 +40735,22 @@ PrefabInstance:
       propertyPath: uiInventoryPrefab
       value: 
       objectReference: {fileID: 4402216121814561888, guid: 39f689f85e0845c4195585f8c801f66b, type: 3}
+    - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
+      propertyPath: warriorData.magicList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a2b168213009c74b9ce87f633519e6f, type: 2}
+    - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
+      propertyPath: warriorData.magicList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0c9a4fb6c2cdae74193f9dd836824e8b, type: 2}
+    - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
+      propertyPath: warriorData.magicList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 57f3ed8908fc24144b5e7b5f945a1785, type: 2}
+    - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
+      propertyPath: warriorData.magicList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c9ac769ac002d34c8c984442c1357e5, type: 2}
     - target: {fileID: 5606394244547385797, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: m_Controller
       value: 
@@ -44730,7 +44746,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1644419556017696542, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: m_Name
-      value: Hero (3)
+      value: Hero (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2287433998385276632, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: playerInput
@@ -44772,6 +44788,22 @@ PrefabInstance:
       propertyPath: warriorData.mp
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: warriorData.magicList.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d2d22b7907e63d1479606d6773348fda, type: 2}
+    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: warriorData.magicList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b4c9027de5b6ad5419bbf71298ed787b, type: 2}
+    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: warriorData.magicList.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: f273b6863dc9244488dbb10a6a12d6f9, type: 2}
+    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: warriorData.magicList.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f42bcb512894854c8583bc1fa72fece, type: 2}
     - target: {fileID: 5784046161846450762, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: combatUI
       value: 

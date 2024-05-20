@@ -87,8 +87,8 @@ public class HeroStats : MonoBehaviour
         warriorData.HP -= damage;
         if (warriorData.HP <= 0)
         {
-            if (!isMainPlayer)
-                gameObject.SetActive(false);
+            // if (!isMainPlayer)
+            gameObject.SetActive(false);
             HpAppPanel.transform.Find(warriorData.Name + "HP").gameObject.SetActive(false);
             NamePanel.transform.Find(warriorData.Name).gameObject.SetActive(false);
         }
@@ -118,12 +118,14 @@ public class HeroStats : MonoBehaviour
 
     void UpdateManaPanel()
     {
-        int maxMP = 20;
+        // int maxMP = 20;
         mpPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + warriorData.mp.ToString();
-        if (warriorData.mp > maxMP)
-        {
-            HpAppPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + maxMP;
-        }
+        // Gives null exception for some reason
+        // Change maxMP in somewhere else
+        // if (warriorData.mp > maxMP)
+        // {
+            // HpAppPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + maxMP;
+        // }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

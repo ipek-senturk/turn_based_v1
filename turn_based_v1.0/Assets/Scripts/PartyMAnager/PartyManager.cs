@@ -42,19 +42,20 @@ public class PartyManager : MonoBehaviour
         heroIdToIndexMap[warrior.WarriorId] = warriorList.Count - 1; // Map ID to the current index
         Debug.Log($"Added Warrior: {warrior.WarriorName}, ID: {warrior.WarriorId}, Index: {warriorList.Count - 1}");
     }
-    public void RemoveWarrior(int warriorId)
+    public void RemoveWarrior(int warriorIndex)
     {
-        if (heroIdToIndexMap.TryGetValue(warriorId, out int index))
+        if (warriorIndex < 0 || warriorIndex >= warriorList.Count)
         {
-            Debug.Log($"Removing Warrior: {warriorList[index].WarriorName}, ID: {warriorId}, Index: {index}");
-            warriorList.RemoveAt(index);
-            heroIdToIndexMap.Remove(warriorId);
-            UpdateHeroIdToIndexMap(); // Update the map after removal
+            Debug.LogWarning($"Invalid Warrior Index: {warriorIndex}");
+            return; // Invalid index
         }
-        else
-        {
-            Debug.LogWarning($"Warrior with ID: {warriorId} not found!");
-        }
+
+        int warriorId = warriorList[warriorIndex].WarriorId;
+
+        Debug.Log($"Removing Warrior: {warriorList[warriorIndex].WarriorName}, ID: {warriorId}, Index: {warriorIndex}");
+        warriorList.RemoveAt(warriorIndex);
+        heroIdToIndexMap.Remove(warriorId);
+        UpdateHeroIdToIndexMap(); // Update the map after removal
     }
     private void UpdateHeroIdToIndexMap()
     {
@@ -259,6 +260,7 @@ public class PartyManager : MonoBehaviour
                 if (warriorList.Count > 1)
                 {
                     // warriorList.RemoveAt(targetHero);
+                    // Sending the index directly
                     RemoveWarrior(targetHero);
                     UIManager.HeroPositionsList();
                 }
