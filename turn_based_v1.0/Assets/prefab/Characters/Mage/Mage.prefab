@@ -237,7 +237,8 @@ MonoBehaviour:
   NamePanel: {fileID: 0}
   levelPanel: {fileID: 0}
   spellPanel: {fileID: 0}
-  hero: 0
+  isMainPlayer: 0
+  uiInventoryPrefab: {fileID: 0}
   uiInventory: {fileID: 0}
 --- !u!95 &5606394244547385797
 Animator:
@@ -249,7 +250,7 @@ Animator:
   m_GameObject: {fileID: 1644419556017696542}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2051c492c06ea3544b3881c0fff35578, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3970107c58956444c9169b72ca1a084a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -141,4 +141,9 @@ public class HeroStats : MonoBehaviour
     {
         return isMainPlayer;
     }
+
+    public void SetIsMainPlayer(bool isMainPlayer)
+    {
+        this.isMainPlayer = isMainPlayer;
+    }
 }

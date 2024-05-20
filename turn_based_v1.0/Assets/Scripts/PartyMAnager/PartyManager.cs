@@ -269,6 +269,7 @@ public class PartyManager : MonoBehaviour
                 {
                     UIManager.EndCombat();
                     EndScript();
+                    yield break;
                 }
             }
         }
