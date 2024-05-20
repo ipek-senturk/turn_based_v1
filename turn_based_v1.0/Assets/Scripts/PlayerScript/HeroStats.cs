@@ -53,7 +53,7 @@ public class HeroStats : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I) && isMainPlayer && gameObject.GetComponent<MovePlayer>().playerInput.state == InputManager.ControllerState.Movable)
+        if (Input.GetKeyDown(KeyCode.I) && isMainPlayer)
         {
             Debug.Log("pressed i");
 
