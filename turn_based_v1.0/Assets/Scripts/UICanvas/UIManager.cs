@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     {
         if (!playerSelect) // Ensure player is selected
         {
-            if (Input.GetKeyDown(KeyCode.Return) && enterReady)
+            if (Input.GetKeyDown(KeyCode.E) && enterReady)
             {
                 // Handle button click
                 switch (selectionMenu)
@@ -282,40 +282,6 @@ public class UIManager : MonoBehaviour
         ClearHeroSelector();
         UpdateItemButtonUI(); // Refresh the item menu after using an item
     }
-
-    /*
-    public void OnItemButtonClick(int itemIndex)
-    {
-        SetOptionButtonsInteractable(false);
-        itemMenu.SetActive(false);
-
-        // Map the UI button index to the item type
-        Item.ItemType itemType = itemIndex == 0 ? Item.ItemType.HealthPotion : Item.ItemType.ManaPotion;
-
-        // Get the actual index from the mapping
-        if (itemIndexMapping.TryGetValue(itemType, out int actualIndex))
-        {
-            List<Item> temp = partymanager.GetInventory().GetItemList();
-
-            if (temp[actualIndex].amount > 0)
-            {
-                partymanager.UseItem(selectedWarriorId, actualIndex);
-            }
-            else
-            {
-                Debug.Log("No item");
-            }
-        }
-        else
-        {
-            Debug.Log("No item");
-        }
-
-        playerSelect = true;
-        ClearHeroSelector();
-        itemMenu.SetActive(false);
-        // OnItemsButton(); // Refresh the item menu after using an item
-    } */
     private void SelectFirstButtonInMenu()
     {
         // Select Attack button
@@ -345,10 +311,5 @@ public class UIManager : MonoBehaviour
     private void SetMagicButtonsInteractable(bool interactable)
     {
         SetButtonsInteractable(magicMenu.transform, 4, interactable);
-    }
-
-    private void SetItemButtonsInteractable(bool interactable)
-    {
-        SetButtonsInteractable(itemMenu.transform, 2, interactable);
     }
 }

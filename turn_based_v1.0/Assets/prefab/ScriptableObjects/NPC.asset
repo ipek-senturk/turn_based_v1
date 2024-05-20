@@ -15,6 +15,5 @@ MonoBehaviour:
   HP: 10
   App: 1
   Name: Blue Slime
-  Att: 10
+  Att: 150
   sprite: {fileID: -1190206999, guid: b9485c4865945ce4b8d455c3fbec8d0b, type: 3}
-  enemyGO: {fileID: 9215405641351373017, guid: 159b47d7919f1014d80676c93373d70e, type: 3}

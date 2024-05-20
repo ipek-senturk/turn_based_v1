@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenuAnimation : MonoBehaviour
 {
-    public float speed = 5f; // Kameranýn x ekseninde hareket hýzý
+    public float speed = 5f; // Camera speed x axis
 
     private enum CameraState
     {
@@ -74,6 +74,4 @@ public class MainMenuAnimation : MonoBehaviour
             currentState = CameraState.MovingRight;
         }
     }
-
-
 }

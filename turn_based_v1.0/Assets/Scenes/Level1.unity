@@ -434,11 +434,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: warriorData.HP
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: warriorData.mp
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: warriorData.ATT
@@ -40548,11 +40548,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: warriorData.HP
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: warriorData.mp
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: warriorData.Name
@@ -40717,11 +40717,11 @@ PrefabInstance:
       objectReference: {fileID: 203898534}
     - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: warriorData.HP
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: warriorData.mp
-      value: 10
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2471522041422577540, guid: 02f84e557abd041479f0e670791570b6, type: 3}
       propertyPath: warriorData.ATT
@@ -44764,6 +44764,14 @@ PrefabInstance:
       propertyPath: partyManager
       value: 
       objectReference: {fileID: 203898534}
+    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: warriorData.HP
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2471522041422577540, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
+      propertyPath: warriorData.mp
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5784046161846450762, guid: d99d4be66bfd9a947a59ef0283737e71, type: 3}
       propertyPath: combatUI
       value: 
