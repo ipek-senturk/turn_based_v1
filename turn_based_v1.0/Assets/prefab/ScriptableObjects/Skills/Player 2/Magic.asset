@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 10
   manaCost: 10
-  spellName: Bob 1-1
+  spellName: Fireball
   sprite: {fileID: 0}

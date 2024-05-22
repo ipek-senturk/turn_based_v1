@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 10
   manaCost: 10
-  spellName: Mage 1
+  spellName: Icicle
   sprite: {fileID: 0}
