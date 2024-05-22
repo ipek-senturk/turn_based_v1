@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1658324990}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &302851704
@@ -93551,6 +93551,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3528648558333936888, guid: 035cf43f8c204634fb513c59eb8a85ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.189
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528648558333936888, guid: 035cf43f8c204634fb513c59eb8a85ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.718
+      objectReference: {fileID: 0}
+    - target: {fileID: 3566153507493063912, guid: 035cf43f8c204634fb513c59eb8a85ed, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 206ae7219f8dc754a9ae93841693025d, type: 3}
     - target: {fileID: 3566153507493063912, guid: 035cf43f8c204634fb513c59eb8a85ed, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -93730,12 +93742,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9143829318420493617, guid: 5272a41c1f63fbf45a3343dc533c684a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6ad39d0fa3b6994e84b0c7b5f2dbb52, type: 3}
+    - target: {fileID: 9143829318420493617, guid: 5272a41c1f63fbf45a3343dc533c684a, type: 3}
       propertyPath: m_SortingLayer
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9143829318420493617, guid: 5272a41c1f63fbf45a3343dc533c684a, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 9143829318420493617, guid: 5272a41c1f63fbf45a3343dc533c684a, type: 3}
       propertyPath: m_SortingLayerID

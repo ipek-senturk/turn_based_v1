@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[System.Serializable]
 public class Inventory
 {
     public event EventHandler OnItemListChanged;
@@ -79,6 +80,12 @@ public class Inventory
     public List<Item> GetItemList() 
     {
         return itemList;
+    }
+
+    public void Clear()
+    {
+        itemList.Clear();
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public int GetItemIndex(Item.ItemType itemType)

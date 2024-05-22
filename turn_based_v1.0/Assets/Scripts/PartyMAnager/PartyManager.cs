@@ -195,7 +195,7 @@ public class PartyManager : MonoBehaviour
                 if (EnemyCombatList[i].EnemyHP <= 0)
                 {
                     Debug.Log($"Enemy {EnemyCombatList[i].EnemyName} defeated!");
-                    StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+                    // StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                     EnemyCombatList.RemoveAt(i);
                     UIManager.PopulateArrayPositions();
                     if (EnemyCombatList.Count != 0)
@@ -240,12 +240,12 @@ public class PartyManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             // Play the hurt animation for the targeted hero
             StartCoroutine(PlayHurtAnimation(warriorList[targetHero].WarriorGameObject.GetComponent<Animator>()));
-            
+
             // Wait for the attack animation to finish
             yield return new WaitForSeconds(enemy.EnemyGameObject.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0).Length);
 
             // Inflict damage on the targeted hero
-            warriorList[targetHero].WarriorGameObject.GetComponent<HeroStats>().RecieveDamage(enemy.EnemyAtt);
+            warriorList[targetHero].WarriorGameObject.GetComponent<HeroStats>().ReceiveDamage(enemy.EnemyAtt);
 
             // Print damage information
             print("The hero " + warriorList[targetHero].WarriorName + " received " + enemy.EnemyAtt + " damage from Enemy " + enemy.EnemyName);
@@ -257,24 +257,39 @@ public class PartyManager : MonoBehaviour
             if (warriorList[targetHero].WarriorHP <= 0)
             {
                 print("Your warrior is dead");
-                if (warriorList.Count > 1)
-                {
-                    // warriorList.RemoveAt(targetHero);
-                    // Sending the index directly
-                    RemoveWarrior(targetHero);
-                    UIManager.HeroPositionsList();
-                }
 
-                if (warriorList.Count == 1)
+                // Check if the dead warrior is the mage (main player)
+                if (targetHero == FindMageInList())
                 {
-                    UIManager.EndCombat();
-                    EndScript();
-                    yield break;
+                    // Ensure mage's HP doesn't drop below 1
+                    warriorList[targetHero].WarriorHP = 1;
+                    // Do not remove the mage from the list, just continue
+                    Debug.Log("Mage's HP set to 1, not removing from the list");
+                    continue;
+                }
+                else
+                {
+                    // Remove the non-mage warrior if the list has more than one warrior
+                    if (warriorList.Count > 1)
+                    {
+                        // Sending the index directly
+                        RemoveWarrior(targetHero);
+                        UIManager.HeroPositionsList();
+                    }
+
+                    // Check if only the mage remains in the list
+                    if (warriorList.Count == 1)
+                    {
+                        UIManager.EndCombat();
+                        EndScript();
+                        yield break;
+                    }
                 }
             }
         }
         playersTurn = true;
     }
+
     public void UseItem(int warriorId, Item.ItemType itemType)
     {
         if (!playersTurn)
@@ -303,7 +318,7 @@ public class PartyManager : MonoBehaviour
         {
             // HP Potion
             warriorList[warriorIndex].WarriorHP += hpPoints;
-            warriorList[warriorIndex].WarriorGameObject.GetComponent<HeroStats>().RecieveDamage(-hpPoints);
+            warriorList[warriorIndex].WarriorGameObject.GetComponent<HeroStats>().ReceiveDamage(-hpPoints);
             warriorList[FindMageInList()].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
         }
         else if (itemType == Item.ItemType.ManaPotion)
