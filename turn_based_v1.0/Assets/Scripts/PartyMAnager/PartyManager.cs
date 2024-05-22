@@ -12,6 +12,7 @@ public class PartyManager : MonoBehaviour
 
     public UIManager UIManager;
     public InputManager inputManager;
+    public SkillManager skillManager;
 
     public CombatCanvas combatcanvasScript;
     public Input playerInput;
@@ -173,29 +174,35 @@ public class PartyManager : MonoBehaviour
                     // Magic attack
                     damage = warriorList[warriorIndex].MagicList[magicSelected].damage;
                     int manaCost = warriorList[warriorIndex].MagicList[magicSelected].manaCost;
+                    string name = warriorList[warriorIndex].MagicList[magicSelected].spellName;
                     warriorList[warriorIndex].WarriorMp -= manaCost;
                     warriorList[warriorIndex].WarriorGameObject.GetComponent<HeroStats>().CastSpell(manaCost);
                     Debug.Log($"Warrior {warriorList[warriorIndex].WarriorName} casts spell with damage: {damage} and mana cost: {manaCost}");
+                    StartCoroutine(PlayAttackAnimation(warriorList[warriorIndex].WarriorGameObject.GetComponent<Animator>()));
+                    StartCoroutine(InvokeSkill(name,i,damage));
+
                 }
                 else
                 {
                     // Physical attack
                     damage = warriorList[warriorIndex].WarriorAttack;
                     Debug.Log($"Warrior {warriorList[warriorIndex].WarriorName} performs physical attack with damage: {damage}");
+                    StartCoroutine(PlayAttackAnimation(warriorList[warriorIndex].WarriorGameObject.GetComponent<Animator>()));
+                    EnemyCombatList[i].EnemyHP -= damage;
+                    EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(damage);
+                    StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                 }
+                //StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
 
-                EnemyCombatList[i].EnemyHP -= damage;
-                Debug.Log($"Enemy {EnemyCombatList[i].EnemyName} takes {damage} damage. Remaining HP: {EnemyCombatList[i].EnemyHP}");
-
-                StartCoroutine(PlayAttackAnimation(warriorList[warriorIndex].WarriorGameObject.GetComponent<Animator>()));
-                StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
-
-                EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(damage);
+                //EnemyCombatList[i].EnemyHP -= damage;
+                Debug.Log($"Enemy {EnemyCombatList[i].EnemyName} takes {damage} damage. Remaining HP: {EnemyCombatList[i].EnemyHP}");           
+                
+                //EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(damage);
 
                 if (EnemyCombatList[i].EnemyHP <= 0)
                 {
                     Debug.Log($"Enemy {EnemyCombatList[i].EnemyName} defeated!");
-                    // StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+                    //StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                     EnemyCombatList.RemoveAt(i);
                     UIManager.PopulateArrayPositions();
                     if (EnemyCombatList.Count != 0)
@@ -374,8 +381,49 @@ public class PartyManager : MonoBehaviour
     }
     private IEnumerator PlayDeathAnimation(Animator animator)
     {
-        animator.SetBool("isDead", true);
+        animator.SetTrigger("isDead");
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0).Length);
+
+
+    }
+    private IEnumerator InvokeSkill(string skillName, int i, int damage)
+    {
+        MethodInfo method = skillManager.GetType().GetMethod(skillName, BindingFlags.Instance | BindingFlags.Public);
+        if (method != null)
+        {
+            yield return (IEnumerator)method.Invoke(skillManager, null);
+            StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+            if (EnemyCombatList[i].EnemyHP <= damage)
+            {
+                StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+            }
+            
+            yield return new WaitForSeconds(0.5f);
+            EnemyCombatList[i].EnemyHP -= damage;
+            EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(damage);
+        }
+        else
+        {
+            Debug.LogError($"Skill {skillName} not found in SkillManager.");
+        }
+
+        if (EnemyCombatList[i].EnemyHP <= 0)
+        {
+            Debug.Log($"Enemy {EnemyCombatList[i].EnemyName} defeated!");
+            //StartCoroutine(PlayDeathAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
+            EnemyCombatList.RemoveAt(i);
+            UIManager.PopulateArrayPositions();
+            if (EnemyCombatList.Count != 0)
+            {
+                UIManager.MoveCrossair();
+            }
+        }
+        if (EnemyCombatList.Count == 0)
+        {
+            UIManager.EndCombat();
+            EndScript();
+           
+        }
     }
 }

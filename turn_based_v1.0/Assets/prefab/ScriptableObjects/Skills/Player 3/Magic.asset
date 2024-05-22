@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 10
   manaCost: 11
-  spellName: Bob 2-1
+  spellName: Earthhit
   sprite: {fileID: 0}
