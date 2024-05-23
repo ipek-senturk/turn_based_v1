@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
             characterAnimator2.SetTrigger("Attack");
         }
         isNewGame = true; // Set flag to indicate a new game
-        SceneManager.LoadScene("Level1");
+        StartCoroutine(LoadScene("Level1"));
     }
 
     public void ContinueGame()
@@ -37,14 +37,14 @@ public class MainMenu : MonoBehaviour
 
         if (PlayerPrefs.HasKey("SavedScene"))
         {
-            string sceneName = PlayerPrefs.GetString("SavedScene");
-            SceneManager.LoadScene(sceneName);
+            string sceneName = PlayerPrefs.GetString("SavedScene");      
+            StartCoroutine(LoadScene(sceneName));
         }
         else
         {
             // Handle case where no save exists
             Debug.Log("No saved game found!");
-            SceneManager.LoadScene("Level1");
+            StartCoroutine(LoadScene("Level1"));
         }
     }
 
@@ -60,9 +60,10 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    public void LoadScene()
+    public IEnumerator LoadScene(string name)
     {
-        SceneManager.LoadScene("Level1");
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(name);
     }
 
     public bool IsNewGame()
