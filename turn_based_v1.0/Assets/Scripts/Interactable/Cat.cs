@@ -4,10 +4,26 @@ using UnityEngine.SceneManagement;
 
 public class Cat : MonoBehaviour
 {
+    public AudioClip soundEffect;
+    private AudioSource audioSource;
+    private bool isPlaying = false;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     public void Meow()
     {
         Debug.Log("Meow");
         SaveGameState();
+        if (!isPlaying)
+        {
+            isPlaying = true;
+            StartCoroutine(PlayMeowEffect());
+        }
+        
+
     }
 
     private void SaveGameState()
@@ -47,5 +63,12 @@ public class Cat : MonoBehaviour
         gameData.pickedItems = GameManager.Instance.GetPickedItems();
 
         SaveSystem.SaveGame(gameData);
+    }
+
+    System.Collections.IEnumerator PlayMeowEffect()
+    {
+        audioSource.PlayOneShot(soundEffect);
+        yield return new WaitForSeconds(soundEffect.length);
+        isPlaying = false;
     }
 }

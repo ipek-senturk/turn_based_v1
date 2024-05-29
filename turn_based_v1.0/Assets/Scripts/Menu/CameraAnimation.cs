@@ -69,7 +69,7 @@ public class MainMenuAnimation : MonoBehaviour
     {
         transform.position -= new Vector3(0, speed * Time.deltaTime, 0);
 
-        if (transform.position.y <= -15f)
+        if (transform.position.y <= -25f)
         {
             currentState = CameraState.MovingRight;
         }
