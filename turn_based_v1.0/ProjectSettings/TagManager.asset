@@ -56,14 +56,20 @@ TagManager:
   - name: Ground 2. Layer
     uniqueID: 2960405055
     locked: 0
+  - name: Ground 3. Layer
+    uniqueID: 112952717
+    locked: 0
   - name: Buildings 2. Layer
     uniqueID: 961257
     locked: 0
-  - name: Building 3. Layer
+  - name: Buildings 3. Layer
     uniqueID: 3571631971
     locked: 0
   - name: Characters
     uniqueID: 2296161683
+    locked: 0
+  - name: Buildings 4. Layer
+    uniqueID: 3605953453
     locked: 0
   - name: UI
     uniqueID: 1856452715
