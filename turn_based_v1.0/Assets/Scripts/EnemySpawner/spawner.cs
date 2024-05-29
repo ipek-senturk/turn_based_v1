@@ -13,6 +13,13 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
+        // Check if the spawner has been defeated before activating
+        if (GameManager.Instance.GetDefeatedSpawners().Contains(ID.ToString()))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         render = GetComponent<SpriteRenderer>();
         render.sprite = enemyObject[0].sprite;
     }
@@ -25,9 +32,13 @@ public class Spawner : MonoBehaviour
         partyManager.EnemySpawner = this;
         gameObject.GetComponent<Animator>().enabled = false;
     }
+
     public void KillSpawner()
     {
-        Destroy(gameObject);
+        // Add to the list of defeated spawners in GameManager
+        GameManager.Instance.AddDefeatedSpawner(ID);
+        gameObject.SetActive(false);
+        // Destroy(gameObject);
     }
 
     void SpawnEnemies()
@@ -41,7 +52,7 @@ public class Spawner : MonoBehaviour
             newEnemy.GetComponent<EnemyTemplate>().enemydata.Name = enemyObject[i].Name;
             newEnemy.GetComponent<EnemyTemplate>().enemydata.id = i;
             
-            newEnemy.GetComponent<SpriteRenderer>().sprite= enemyObject[i].sprite;
+            newEnemy.GetComponent<SpriteRenderer>().sprite = enemyObject[i].sprite;
             newEnemy.name = i.ToString();
             newEnemy.GetComponent<EnemyTemplate>().SendData();
         }

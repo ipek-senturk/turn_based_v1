@@ -217,7 +217,6 @@ public class PartyManager : MonoBehaviour
                     EndScript();
                     break;
                 }
-
                 break;
             }
         }

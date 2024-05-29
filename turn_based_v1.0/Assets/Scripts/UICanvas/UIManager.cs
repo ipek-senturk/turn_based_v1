@@ -24,7 +24,6 @@ public class UIManager : MonoBehaviour
     bool targetSelect;
     // for debug
     public bool spellSelected;
-
     public int selectedWarriorId;
     public int targetID;
 
@@ -224,7 +223,7 @@ public class UIManager : MonoBehaviour
         int level = partymanager.GetWarriorLevel(selectedWarriorId);
         for (int i = 0; i < level; i++)
         {
-            magicMenu.transform.GetChild(0).transform.GetChild(i).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = temp[i].spellName;
+            magicMenu.transform.GetChild(0).transform.GetChild(i).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = temp[i].spellName + " MP:" + temp[i].manaCost;
             magicMenu.transform.GetChild(0).transform.GetChild(i).GetComponent<Button>().interactable = true; 
         }
         Debug.Log("Magic Select");

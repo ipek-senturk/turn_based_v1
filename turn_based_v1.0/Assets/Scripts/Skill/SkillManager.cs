@@ -9,15 +9,11 @@ public class SkillManager : MonoBehaviour
     public Animator animator;
 
     void Start()
-    {
-
-        
-
-    }
+    {}
 
     public IEnumerator Icicle()
     {
-        // HeroLocation'un transform deðerlerini kendi transformunuza yazýn
+        // HeroLocation's transform values to starting point
         GetComponent<SpriteRenderer>().enabled = true;
         animator.SetTrigger("Ice1Start");
         transform.position = HeroLocation.transform.position;
@@ -26,7 +22,7 @@ public class SkillManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
 
-        float duration = 1.5f; // Hareket süresi (1 saniye)
+        float duration = 1.5f; // Movement time (1 second)
         float elapsedTime = 0;
 
         while (elapsedTime < duration)
@@ -36,7 +32,7 @@ public class SkillManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        // Hareket sonunda tam hedef pozisyon ve rotasyona set edilir
+        // Set to full target position and rotation at the end of the movement
         transform.position = endPosition;
 
         
@@ -47,7 +43,6 @@ public class SkillManager : MonoBehaviour
     }
     public IEnumerator Fireball()
     {
-        // HeroLocation'un transform deðerlerini kendi transformunuza yazýn
         animator.SetTrigger("Fire1Start");
         GetComponent<SpriteRenderer>().enabled = true;
         
@@ -57,7 +52,7 @@ public class SkillManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
 
-        float duration = 1.5f; // Hareket süresi (1 saniye)
+        float duration = 1.5f;
         float elapsedTime = 0;
 
         while (elapsedTime < duration)
@@ -136,6 +131,4 @@ public class SkillManager : MonoBehaviour
         GetComponent<SpriteRenderer>().enabled = false;
 
     }
-
-
 }

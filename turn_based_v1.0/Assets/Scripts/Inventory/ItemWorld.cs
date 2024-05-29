@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
 {
+    public string itemID; // Unique identifier for each item instance
+
     public static ItemWorld SpawnItemWorld(Vector3 position, Item item)
     {
         Transform transform = Instantiate(ItemAssets.Instance.pfItemWorld, position, Quaternion.identity);
-        
+
         ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
         itemWorld.SetItem(item);
-        
+
         return itemWorld;
     }
-    
+
     private Item item;
     private SpriteRenderer spriteRenderer;
     private void Awake()
@@ -34,6 +36,8 @@ public class ItemWorld : MonoBehaviour
 
     public void DestroySelf()
     {
+        // Add to the list of picked items in GameManager
+        GameManager.Instance.AddPickedItem(itemID);
         Destroy(gameObject);
     }
 }

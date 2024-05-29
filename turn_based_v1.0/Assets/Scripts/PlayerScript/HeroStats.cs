@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using static HeroStats;
-
 public class HeroStats : MonoBehaviour
 {
     [System.Serializable]
@@ -33,10 +32,6 @@ public class HeroStats : MonoBehaviour
 
     private void Start()
     {
-        if (!MainMenu.Instance.IsNewGame()) // Check if it's a new game
-        {
-            LoadStats(); // Load default stats for a new game
-        }
         if (gameObject.CompareTag("Mage"))
         {
             isMainPlayer = true;
@@ -119,6 +114,12 @@ public class HeroStats : MonoBehaviour
         }
         UpdateManaPanel();
     }
+    public void SetHeroData(HeroData data)
+    {
+        warriorData.HP = data.health;
+        warriorData.mp = data.mana;
+        transform.position = new Vector3(data.positionX, data.positionY, transform.position.z);
+    }
     void UpdateUI()
     {
         int maxHP = 100;
@@ -158,51 +159,5 @@ public class HeroStats : MonoBehaviour
     public void SetIsMainPlayer(bool isMainPlayer)
     {
         this.isMainPlayer = isMainPlayer;
-    }
-
-    public void SaveStats()
-    {
-        string heroName = warriorData.Name;
-        PlayerPrefs.SetInt(heroName + "_HP", warriorData.HP);
-        PlayerPrefs.SetInt(heroName + "_MP", warriorData.mp);
-        PlayerPrefs.SetInt(heroName + "_Level", warriorData.level);
-        PlayerPrefs.SetString(heroName + "_Name", warriorData.Name);
-        PlayerPrefs.SetInt(heroName + "_ATT", warriorData.ATT);
-        PlayerPrefs.SetString("SavedScene", UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        
-        // Save inventory
-        /*
-        for (int i = 0; i < warriorData.inventory.GetItemList().Count; i++)
-        {
-            Item item = warriorData.inventory.GetItemList()[i];
-            PlayerPrefs.SetString(heroName + "_Item_" + i, JsonUtility.ToJson(item));
-        }
-        PlayerPrefs.SetInt(heroName + "_InventoryCount", warriorData.inventory.GetItemList().Count); */
-        PlayerPrefs.Save();
-    }
-
-    public void LoadStats()
-    {
-        string heroName = warriorData.Name;
-        if (PlayerPrefs.HasKey(heroName + "_HP"))
-        {
-            warriorData.HP = PlayerPrefs.GetInt(heroName + "_HP");
-            warriorData.mp = PlayerPrefs.GetInt(heroName + "_MP");
-            warriorData.level = PlayerPrefs.GetInt(heroName + "_Level");
-            warriorData.Name = PlayerPrefs.GetString(heroName + "_Name");
-            warriorData.ATT = PlayerPrefs.GetInt(heroName + "_ATT");
-
-            // Load inventory
-            /*
-            int inventoryCount = PlayerPrefs.GetInt(heroName + "_InventoryCount");
-            // warriorData.inventory.Clear();
-            for (int i = 0; i < inventoryCount; i++)
-            {
-                string itemJson = PlayerPrefs.GetString(heroName + "_Item_" + i);
-                Item item = JsonUtility.FromJson<Item>(itemJson);
-                warriorData.inventory.AddItem(item);
-            }
-            */
-        }
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,68 +6,67 @@ public class MainMenu : MonoBehaviour
 {
     public Animator characterAnimator;
     public Animator characterAnimator2;
-    private bool isNewGame = true; // Flag to track whether it's a new game or a saved game
-    public static MainMenu Instance;
 
     private void Start()
     {
-        Instance = this;
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager instance not found!");
+            return;
+        }
     }
+
     public void PlayGame()
     {
+        Debug.Log("Starting New Game");
         if (characterAnimator != null && characterAnimator2 != null)
         {
             characterAnimator.SetTrigger("Attack");
             characterAnimator2.SetTrigger("Attack");
         }
-        isNewGame = true; // Set flag to indicate a new game
-        StartCoroutine(LoadScene("Level1"));
+        GameManager.Instance.isNewGame = true; // Set flag to indicate a new game
+        StartCoroutine(LoadScene("Level1")); // Assuming "Level1" is your first level
     }
 
     public void ContinueGame()
     {
+        Debug.Log("Continuing Game");
         if (characterAnimator != null && characterAnimator2 != null)
         {
             characterAnimator.SetTrigger("Attack");
             characterAnimator2.SetTrigger("Attack");
         }
 
-        isNewGame = false; // Set flag to indicate a saved game
+        GameManager.Instance.isNewGame = false; // Set flag to indicate a saved game
 
-        if (PlayerPrefs.HasKey("SavedScene"))
+        if (SaveSystem.SaveExists())
         {
-            string sceneName = PlayerPrefs.GetString("SavedScene");      
-            StartCoroutine(LoadScene(sceneName));
+            GameData data = SaveSystem.LoadGame();
+            StartCoroutine(LoadScene(data.currentScene));
         }
         else
         {
             // Handle case where no save exists
             Debug.Log("No saved game found!");
-            StartCoroutine(LoadScene("Level1"));
+            StartCoroutine(LoadScene("Level1")); // Fall back to starting a new game
         }
     }
 
     public void QuitGame()
     {
-        if(characterAnimator != null && characterAnimator2 != null)
+        Debug.Log("Quitting Game");
+        if (characterAnimator != null && characterAnimator2 != null)
         {
             characterAnimator.SetTrigger("Attack");
             characterAnimator2.SetTrigger("Attack");
         }
 
         Application.Quit();
-        
     }
 
-    public IEnumerator LoadScene(string name)
+    private IEnumerator LoadScene(string sceneName)
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(name);
-    }
-
-    public bool IsNewGame()
-    {
-        return isNewGame;
+        SceneManager.LoadScene(sceneName);
     }
 }
-

@@ -5,9 +5,8 @@ using UnityEngine;
 public class MovePlayer : MonoBehaviour
 {
     public float movementSpeed = 5.0f;
-    public float collisionOffset = 0.05f;
+    public float collisionOffset = 0.1f;
     public ContactFilter2D movementFilter;
-
     public InputManager playerInput;
 
     private Vector2 movementInput;
@@ -31,7 +30,7 @@ public class MovePlayer : MonoBehaviour
             {
                 animator.SetFloat("XInput", movementInput.x);
                 animator.SetFloat("YInput", movementInput.y);
-                
+
                 bool success = TryMove(movementInput);
 
                 if (!success)
@@ -50,45 +49,40 @@ public class MovePlayer : MonoBehaviour
             {
                 animator.SetBool("isWalking", false);
             }
-        } 
+        }
         else
         {
             animator.SetBool("isWalking", false);
         }
     }
-   
+
     private bool TryMove(Vector2 direction)
     {
         // Check for potential collisions
         int count = rb.Cast(
-            direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
-            movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
-            castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-            movementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
-        if(count == 0)
+            direction,
+            movementFilter,
+            castCollisions,
+            movementSpeed * Time.fixedDeltaTime + collisionOffset);
+
+        if (count == 0)
         {
             Vector2 moveVector = movementSpeed * Time.fixedDeltaTime * direction;
-
-            // No collisions
             rb.MovePosition(rb.position + moveVector);
             return true;
-        } 
+        }
         else
         {
-            // Collision happened
+            // If collision happens, make small adjustments to avoid getting stuck
+            for (int i = 0; i < castCollisions.Count; i++)
+            {
+                RaycastHit2D hit = castCollisions[i];
+                Vector2 hitNormal = hit.normal;
+                Vector2 adjustment = hitNormal * (collisionOffset + 0.01f);
+                rb.MovePosition(rb.position + adjustment);
+            }
             return false;
         }
     }
 
-    /*
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Trigger");
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Collision");
-    }
-    */
 }
