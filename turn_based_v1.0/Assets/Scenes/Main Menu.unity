@@ -56940,7 +56940,7 @@ PrefabInstance:
     - target: {fileID: 5468268320897183494, guid: 264430ad7a7704847924bf1353881a7c, type: 3}
       propertyPath: soundEffect
       value: 
-      objectReference: {fileID: 8300000, guid: be40eafb42b28e94991e8c7ed80461f5, type: 3}
+      objectReference: {fileID: 8300000, guid: 6b233a801329f464f8e7e3dc70b536fb, type: 3}
     - target: {fileID: 5468268320897183494, guid: 264430ad7a7704847924bf1353881a7c, type: 3}
       propertyPath: heroStats.Array.size
       value: 4

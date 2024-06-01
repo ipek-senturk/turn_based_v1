@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 10
   manaCost: 11
-  spellName: Mage 2
+  spellName: IceBlast
   sprite: {fileID: 0}
