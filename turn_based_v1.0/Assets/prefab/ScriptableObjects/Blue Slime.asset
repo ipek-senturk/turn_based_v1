@@ -15,5 +15,5 @@ MonoBehaviour:
   HP: 10
   App: 1
   Name: Blue Slime
-  Att: 10
+  Att: 50
   sprite: {fileID: -1190206999, guid: b9485c4865945ce4b8d455c3fbec8d0b, type: 3}

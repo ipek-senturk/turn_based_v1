@@ -22,8 +22,6 @@ public class Cat : MonoBehaviour
             isPlaying = true;
             StartCoroutine(PlayMeowEffect());
         }
-        
-
     }
 
     private void SaveGameState()

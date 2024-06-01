@@ -179,7 +179,7 @@ public class PartyManager : MonoBehaviour
                     warriorList[warriorIndex].WarriorGameObject.GetComponent<HeroStats>().CastSpell(manaCost);
                     Debug.Log($"Warrior {warriorList[warriorIndex].WarriorName} casts spell with damage: {damage} and mana cost: {manaCost}");
                     StartCoroutine(PlayAttackAnimation(warriorList[warriorIndex].WarriorGameObject.GetComponent<Animator>()));
-                    StartCoroutine(InvokeSkill(name,i,damage));
+                    StartCoroutine(InvokeSkill(name, i, damage));
 
                 }
                 else
@@ -192,13 +192,9 @@ public class PartyManager : MonoBehaviour
                     EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(damage);
                     StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
                 }
-                //StartCoroutine(PlayHurtAnimation(EnemyCombatList[i].EnemyGameObject.GetComponent<Animator>()));
 
-                //EnemyCombatList[i].EnemyHP -= damage;
                 Debug.Log($"Enemy {EnemyCombatList[i].EnemyName} takes {damage} damage. Remaining HP: {EnemyCombatList[i].EnemyHP}");           
                 
-                //EnemyCombatList[i].EnemyGameObject.GetComponent<EnemyTemplate>().TakeDamage(damage);
-
                 if (EnemyCombatList[i].EnemyHP <= 0)
                 {
                     Debug.Log($"Enemy {EnemyCombatList[i].EnemyName} defeated!");
@@ -317,8 +313,9 @@ public class PartyManager : MonoBehaviour
             return;
         }
 
-        int hpPoints = 50;
-        int mpPoints = 10;
+        // Recover to full stats
+        int hpPoints = 100 - warriorList[warriorIndex].WarriorHP;
+        int mpPoints = 50 - warriorList[warriorIndex].WarriorMp;
 
         if (itemType == Item.ItemType.HealthPotion)
         {

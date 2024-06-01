@@ -15,5 +15,5 @@ MonoBehaviour:
   HP: 50
   App: 1
   Name: Red Slime
-  Att: 10
+  Att: 50
   sprite: {fileID: 1262267581, guid: b9485c4865945ce4b8d455c3fbec8d0b, type: 3}

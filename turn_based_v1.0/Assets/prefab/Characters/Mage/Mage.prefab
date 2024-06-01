@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1998805613
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -668910207, guid: 37d94ee48e7e5bc4ebbbd563cc4ce0ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -222,15 +222,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   warriorData:
     HP: 100
-    mp: 20
+    mp: 60
     level: 1
-    Name: Bob 1
-    ATT: 11
+    Name: Mage
+    ATT: 5
     magicList:
-    - {fileID: 11400000, guid: d2d22b7907e63d1479606d6773348fda, type: 2}
-    - {fileID: 11400000, guid: b4c9027de5b6ad5419bbf71298ed787b, type: 2}
-    - {fileID: 11400000, guid: f273b6863dc9244488dbb10a6a12d6f9, type: 2}
-    - {fileID: 11400000, guid: 1f42bcb512894854c8583bc1fa72fece, type: 2}
+    - {fileID: 11400000, guid: 1a2b168213009c74b9ce87f633519e6f, type: 2}
+    - {fileID: 11400000, guid: 0c9a4fb6c2cdae74193f9dd836824e8b, type: 2}
+    - {fileID: 11400000, guid: 57f3ed8908fc24144b5e7b5f945a1785, type: 2}
+    - {fileID: 11400000, guid: 9c9ac769ac002d34c8c984442c1357e5, type: 2}
   partyManager: {fileID: 0}
   HpAppPanel: {fileID: 0}
   mpPanel: {fileID: 0}
@@ -332,7 +332,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1998805613
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: b6ad39d0fa3b6994e84b0c7b5f2dbb52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
