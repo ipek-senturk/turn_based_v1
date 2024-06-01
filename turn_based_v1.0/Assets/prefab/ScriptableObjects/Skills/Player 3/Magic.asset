@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 0
   damage: 10
   manaCost: 11
-  spellName: Earthhit
+  spellName: EarthHit
   sprite: {fileID: 0}

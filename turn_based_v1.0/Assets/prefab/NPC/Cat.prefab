@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f975caba19d0448bed063d4030e9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 0}
+  soundEffect: {fileID: 8300000, guid: 6b233a801329f464f8e7e3dc70b536fb, type: 3}
 --- !u!82 &6124424073435001265
 AudioSource:
   m_ObjectHideFlags: 0
@@ -417,10 +417,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInRange: 0
-  interactKey: 0
+  interactKey: 101
   interactAction:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5468268320897183494}
+        m_TargetAssemblyTypeName: Cat, Assembly-CSharp
+        m_MethodName: Meow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!58 &8961458311435328807
 CircleCollider2D:
   m_ObjectHideFlags: 0
