@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Cat : MonoBehaviour
 {
     public AudioClip soundEffect;
+    public GameObject chatPanel;
     private AudioSource audioSource;
     private bool isPlaying = false;
 
@@ -20,6 +22,7 @@ public class Cat : MonoBehaviour
         if (!isPlaying)
         {
             isPlaying = true;
+            StartCoroutine(ToggleChat());
             StartCoroutine(PlayMeowEffect());
         }
     }
@@ -63,10 +66,36 @@ public class Cat : MonoBehaviour
         SaveSystem.SaveGame(gameData);
     }
 
-    System.Collections.IEnumerator PlayMeowEffect()
+    private IEnumerator ToggleChat()
+    {
+        if (chatPanel != null)
+        {
+            chatPanel.SetActive(true);
+
+            // Aktif sahne ID'sine göre bekleme süresini belirle
+            float waitTime = 2f; // Varsayýlan bekleme süresi
+            int sceneID = SceneManager.GetActiveScene().buildIndex;
+
+            if (sceneID == 2)
+            {
+                waitTime = 5f; // Sahne ID 2 ise 5 saniye bekle
+            }
+            else if (sceneID == 1)
+            {
+                waitTime = 2f; // Sahne ID 1 ise 2 saniye bekle
+            }
+
+            yield return new WaitForSeconds(waitTime);
+            chatPanel.SetActive(false);
+        }
+    }
+
+    private IEnumerator PlayMeowEffect()
     {
         audioSource.PlayOneShot(soundEffect);
         yield return new WaitForSeconds(soundEffect.length);
         isPlaying = false;
     }
+
+
 }
