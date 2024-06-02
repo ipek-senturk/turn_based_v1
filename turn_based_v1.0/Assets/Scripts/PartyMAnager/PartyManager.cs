@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PartyManager : MonoBehaviour
@@ -293,6 +294,7 @@ public class PartyManager : MonoBehaviour
                     {
                         UIManager.EndCombat();
                         EndScript();
+                        SceneManager.LoadScene(0);
                         yield break;
                     }
                 }
