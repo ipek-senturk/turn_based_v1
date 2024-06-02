@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffe637be955e3bc458e9eb52c6ccb218, type: 3}
   m_Name: Zombie King
   m_EditorClassIdentifier: 
-  HP: 100
+  HP: 80
   App: 0
   Name: Zombie King
-  Att: 25
-  sprite: {fileID: 0}
+  Att: 20
+  sprite: {fileID: 68355772, guid: 08cc2cc3c9c1de4478efd22b53334636, type: 3}

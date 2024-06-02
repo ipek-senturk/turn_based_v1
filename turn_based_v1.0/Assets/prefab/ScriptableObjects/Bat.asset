@@ -15,5 +15,5 @@ MonoBehaviour:
   HP: 30
   App: 0
   Name: Bat
-  Att: 20
+  Att: 15
   sprite: {fileID: -2144856316, guid: f08b193804094d046a755b417185c771, type: 3}
