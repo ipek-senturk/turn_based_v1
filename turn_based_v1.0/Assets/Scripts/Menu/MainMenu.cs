@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
             characterAnimator2.SetTrigger("Attack");
         }
         GameManager.Instance.isNewGame = true; // Set flag to indicate a new game
-        StartCoroutine(LoadScene("Level1")); // Assuming "Level1" is your first level
+        StartCoroutine(LoadScene("Level1"));
     }
 
     public void ContinueGame()
