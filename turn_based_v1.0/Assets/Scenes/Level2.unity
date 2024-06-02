@@ -171,10 +171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 32
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2820,6 +2820,22 @@ PrefabInstance:
     - target: {fileID: 6932796438405187793, guid: 2f4b5942c7fa8ca479b75045207c0776, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 91.989
+      objectReference: {fileID: 0}
+    - target: {fileID: 7713183821794070024, guid: 2f4b5942c7fa8ca479b75045207c0776, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7713183821794070024, guid: 2f4b5942c7fa8ca479b75045207c0776, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7713183821794070024, guid: 2f4b5942c7fa8ca479b75045207c0776, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 7713183821794070024, guid: 2f4b5942c7fa8ca479b75045207c0776, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 8084593936875015083, guid: 2f4b5942c7fa8ca479b75045207c0776, type: 3}
       propertyPath: m_Pivot.x
