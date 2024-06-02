@@ -90,6 +90,15 @@ public class PartyManager : MonoBehaviour
         playersTurn = true;
         UIManager.gameObject.SetActive(true);
         UIManager.StartUIManager();
+        UpdateHeroUI();
+    }
+
+    public void UpdateHeroUI()
+    {
+        foreach (var warrior in warriorList)
+        {
+            warrior.WarriorGameObject.GetComponent<HeroStats>().UpdateUI();
+        }
     }
     public void GetHeroStats()
     {
@@ -231,7 +240,7 @@ public class PartyManager : MonoBehaviour
 
     private IEnumerator SequenceEnemyAttacks()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(2.0f);
         foreach (var enemy in EnemyCombatList)
         {
             // Get a random target hero
@@ -323,6 +332,7 @@ public class PartyManager : MonoBehaviour
             warriorList[warriorIndex].WarriorHP += hpPoints;
             warriorList[warriorIndex].WarriorGameObject.GetComponent<HeroStats>().ReceiveDamage(-hpPoints);
             warriorList[FindMageInList()].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.HealthPotion, amount = 1 });
+            Debug.Log($"Hero {warriorList[warriorIndex].WarriorName} heals {hpPoints} points. HP: {warriorList[warriorIndex].WarriorHP}");
         }
         else if (itemType == Item.ItemType.ManaPotion)
         {
@@ -330,6 +340,7 @@ public class PartyManager : MonoBehaviour
             warriorList[warriorIndex].WarriorMp += mpPoints;
             warriorList[warriorIndex].WarriorGameObject.GetComponent<HeroStats>().CastSpell(-mpPoints);
             warriorList[FindMageInList()].WarriorGameObject.GetComponent<HeroStats>().UseItem(new Item { itemType = Item.ItemType.ManaPotion, amount = 1 });
+            Debug.Log($"Hero {warriorList[warriorIndex].WarriorName} gainss {mpPoints} points. MP: {warriorList[warriorIndex].WarriorMp}");
         }
 
         if (heroturncount >= warriorList.Count - 1)

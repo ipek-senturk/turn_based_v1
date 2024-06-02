@@ -11,10 +11,11 @@ public class GameLoader : MonoBehaviour
             return;
         }
 
-        if (!GameManager.Instance.isNewGame)
+        if (!GameManager.Instance.isNewGame || GameManager.Instance.isTransitioning)
         {
-            Debug.Log("Continue");
+            Debug.Log("Loading Game State");
             LoadGameState();
+            GameManager.Instance.isTransitioning = false; // Reset transition flag after loading
         }
         else
         {
@@ -24,7 +25,6 @@ public class GameLoader : MonoBehaviour
 
     private void LoadGameState()
     {
-        Debug.Log("Loading Game State");
         GameData data = SaveSystem.LoadGame();
 
         foreach (HeroStats hero in FindObjectsOfType<HeroStats>())
@@ -40,6 +40,10 @@ public class GameLoader : MonoBehaviour
         HeroStats mage = FindObjectsOfType<HeroStats>().FirstOrDefault(h => h.GetIsMainPlayer());
         if (mage != null)
         {
+            if (mage.warriorData.inventory == null)
+            {
+                mage.warriorData.inventory = new Inventory(mage.UseItem);
+            }
             mage.warriorData.inventory.Clear();
             foreach (Item item in data.mageInventory.items)
             {

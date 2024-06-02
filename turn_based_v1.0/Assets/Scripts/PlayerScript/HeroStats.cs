@@ -120,7 +120,7 @@ public class HeroStats : MonoBehaviour
         warriorData.mp = data.mana;
         transform.position = new Vector3(data.positionX, data.positionY, transform.position.z);
     }
-    void UpdateUI()
+    public void UpdateUI()
     {
         int maxHP = 100;
         HpAppPanel.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + warriorData.HP.ToString();
@@ -128,18 +128,12 @@ public class HeroStats : MonoBehaviour
         {
             HpAppPanel.transform.Find(warriorData.Name + "HP").GetComponent<TextMeshProUGUI>().text = "HP " + maxHP;
         }
+        mpPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + warriorData.mp.ToString();
     }
 
     void UpdateManaPanel()
     {
-        // int maxMP = 20;
         mpPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + warriorData.mp.ToString();
-        // Gives null exception for some reason
-        // Change maxMP in somewhere else
-        // if (warriorData.mp > maxMP)
-        // {
-            // HpAppPanel.transform.Find(warriorData.Name + "MP").GetComponent<TextMeshProUGUI>().text = "MP " + maxMP;
-        // }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
